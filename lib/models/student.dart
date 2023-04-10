@@ -7,6 +7,6 @@ class Student {
   static String branch = '';
   static String section = '';
   static String phone = '';
-  static List domain = [];
+  static List domain = [0,0,0,0,0];
   static String reCaptcha = '';
 }

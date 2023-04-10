@@ -11,13 +11,14 @@ textFormField(
   String labelText,
   String? Function(String?)? validator,
     double fontSize,
+    double width,
 ) {
   return Container(
     margin: EdgeInsets.all(fontSize * 0.6),
     // padding: EdgeInsets.all(fontSize * 0.7),
     decoration: BoxDecoration(
       borderRadius: BorderRadius.circular(8),
-      color: Colors.white,
+      color: (width > 600)? AppColors.textFieldColor : AppColors.textFieldColorPhone,
     ),
     // height: fontSize * 2.5,
     child: TextFormField(
@@ -44,12 +45,12 @@ textFormField(
             color: Colors.red,
           ),
         ),
-        focusedBorder: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(
+        focusedBorder: OutlineInputBorder(
+          borderRadius: const BorderRadius.all(
             Radius.circular(8),
           ),
           borderSide: BorderSide(
-            color: AppColors.backColor,
+            color: (width>600)?AppColors.backColor:AppColors.whiteColor,
           ),
         ),
         enabledBorder: const OutlineInputBorder(
@@ -64,25 +65,25 @@ textFormField(
         labelStyle: GoogleFonts.getFont(
           'Ubuntu',
           fontSize: fontSize,
-          color: AppColors.backColor,
-          fontWeight: FontWeight.w600,
+          color: (width>600)?AppColors.backColor:AppColors.whiteColor,
+          fontWeight: FontWeight.w400,
         ),
         hintText: 'Enter $labelText',
         hintStyle: GoogleFonts.getFont(
           'Ubuntu',
           fontSize: fontSize,
           color: AppColors.hintColor,
-          fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w400,
         ),
         errorStyle: const TextStyle(height: 0),
       ),
       style: GoogleFonts.getFont(
         'Ubuntu',
         fontSize: fontSize,
-        color: AppColors.backColor,
+        color: (width>600)?AppColors.backColor:AppColors.whiteColor,
         fontWeight: FontWeight.w300,
       ),
-      cursorColor: AppColors.backColor,
+      cursorColor: (width>600)?AppColors.backColor:AppColors.whiteColor,
       inputFormatters: [
         FilteringTextInputFormatter.singleLineFormatter,
       ],

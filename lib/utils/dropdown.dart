@@ -8,11 +8,13 @@ class DropdownButtonExample extends StatefulWidget {
   final double fontSize;
   final List<String> list;
   final String label;
+  final double width;
   const DropdownButtonExample({
     Key? key,
     required this.fontSize,
     required this.list,
     required this.label,
+    required this.width,
   }) : super(key: key);
 
   @override
