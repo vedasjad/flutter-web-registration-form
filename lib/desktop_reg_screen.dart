@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'app_colors.dart';
 import 'utils/dropdown.dart';
 import 'responsive_widget.dart';
@@ -10,6 +11,7 @@ import 'package:glassmorphism/glassmorphism.dart';
 import 'rating.dart';
 import 'lists.dart';
 import 'models/student.dart';
+import 'package:townhall/services/register_services.dart';
 
 class DesktopRegScreen extends StatefulWidget {
   const DesktopRegScreen({Key? key}) : super(key: key);
@@ -23,19 +25,96 @@ class DropDownSelector {
 }
 
 class _DesktopRegScreenState extends State<DesktopRegScreen> {
+
+  double _formProgress = 0;
   final _regFormKey = GlobalKey<FormState>();
-  TextEditingController nameController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController rollController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
+  final RegisterService registerService = RegisterService();
+
+  void registerUser() {
+    registerService.registerUser(
+      context: context,
+      name: Student.name,
+      email: Student.email,
+      rollno: Student.rollNo,
+      year: Student.year,
+      branch: Student.branch,
+      section: Student.section,
+      phone: Student.phone,
+      domain: Student.domain,
+      reCaptcha: Student.reCaptcha,
+    );
+    debugPrint("cp1");
+  }
+
+  TextEditingController nameController = TextEditingController(text: "Asjad");
+  TextEditingController emailController = TextEditingController(text: "asd123@akgec.ac.in");
+  TextEditingController rollController = TextEditingController(text: "1234567890123");
+  TextEditingController phoneController = TextEditingController(text: "1234567890");
+
+  FocusNode nameNode = FocusNode();
+  FocusNode emailNode = FocusNode();
+  FocusNode yearNode = FocusNode();
+  FocusNode branchNode = FocusNode();
+  FocusNode sectionNode = FocusNode();
+  FocusNode rollNode = FocusNode();
+  FocusNode phoneNode = FocusNode();
+
+  String selectedNode = "None";
 
   @override
   void dispose() {
+    nameNode.dispose();
+    emailNode.dispose();
+    yearNode.dispose();
+    branchNode.dispose();
+    sectionNode.dispose();
+    rollNode.dispose();
+    phoneNode.dispose();
     nameController.dispose();
     emailController.dispose();
     phoneController.dispose();
     rollController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    nameNode.addListener(() {
+      setState(() {
+        selectedNode = nameNode.hasFocus ? "Name" : "None";
+      });
+    });
+    yearNode.addListener(() {
+      setState(() {
+        selectedNode = yearNode.hasFocus ? "Year" : "None";
+      });
+    });
+    branchNode.addListener(() {
+      setState(() {
+        selectedNode = branchNode.hasFocus ? "Branch" : "None";
+      });
+    });
+    sectionNode.addListener(() {
+      setState(() {
+        selectedNode = sectionNode.hasFocus ? "Section" : "None";
+      });
+    });
+    rollNode.addListener(() {
+      setState(() {
+        selectedNode = rollNode.hasFocus ? "University Roll No" : "None";
+      });
+    });
+    phoneNode.addListener(() {
+      setState(() {
+        selectedNode = phoneNode.hasFocus ? "WhatsApp No" : "None";
+      });
+    });
+    emailNode.addListener(() {
+      setState(() {
+        selectedNode = emailNode.hasFocus ? "Email" : "None";
+      });
+    });
   }
 
   @override
@@ -69,20 +148,155 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                               fit: BoxFit.fitHeight,
                             ),
                           ),
-                          Container(
-                            height: height,
-                            color: Colors.transparent,
-                            child: Center(
-                              child: Text(
-                                'TOWNHALL',
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    "images/logo.png",
+                                    fit: BoxFit.fitWidth,
+                                    width: width * 0.05,
+                                  ),
+                                  Image.asset(
+                                    "images/title.png",
+                                    fit: BoxFit.fitWidth,
+                                    width: width * 0.17,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: height * 0.01,
+                              ),
+                              Text(
+                                'PRESENTS',
                                 style: GoogleFonts.getFont(
-                                  'Josefin Sans',
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: height * 0.1,
+                                  'Ubuntu',
+                                  fontSize: height * 0.02,
                                   color: AppColors.whiteColor,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
-                            ),
+                              SizedBox(
+                                height: height*0.05,
+                              ),
+                              Container(
+                                color: Colors.transparent,
+                                child: Center(
+                                  child: Text(
+                                    'TOWNHALL',
+                                    style: GoogleFonts.getFont(
+                                      'Josefin Sans',
+                                      fontWeight: FontWeight.w900,
+                                      fontSize: height * 0.1,
+                                      color: AppColors.whiteColor,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: height*0.05,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '————— Get in touch —————',
+                                    style: GoogleFonts.getFont(
+                                      'Ubuntu',
+                                      fontSize: height * 0.02,
+                                      color: AppColors.whiteColor,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              // SizedBox(
+                              //   height: height*0.0005,
+                              // ),
+                              Padding(
+                                padding: const EdgeInsets.all(18.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                                      child: GestureDetector(
+                                        onTap: () async {
+                                          await launchUrl(Uri.parse('tel:1234567890'));
+                                        },
+                                        child:
+                                        Image.asset(
+                                          "images/call.png",
+                                          color: Colors.white,
+                                          fit: BoxFit.contain,
+                                          height: 30,
+                                          width: 30,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                                      child: GestureDetector(
+                                        onTap: () async {
+                                          await launchUrl(
+                                              Uri.parse('https://www.bdcoe.co.in'),
+                                              mode: LaunchMode.externalApplication);
+                                        },
+                                        child:
+                                        Image.asset(
+                                          "images/website.png",
+                                          color: Colors.white,
+                                          fit: BoxFit.contain,
+                                          height: 30,
+                                          width: 30,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                                      child: GestureDetector(
+                                        onTap: () async {
+                                          await launchUrl(
+                                              Uri.parse('https://www.instagram.com/bdcoe/'),
+                                              mode: LaunchMode.externalApplication);
+                                        },
+                                        child:
+                                        Image.asset(
+                                          "images/insta.png",
+                                          color: Colors.white,
+                                          fit: BoxFit.contain,
+                                          height: 30,
+                                          width: 30,
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                                      child: GestureDetector(
+                                        onTap: () async {
+                                          await launchUrl(Uri.parse('mailto: bdcoe@akgec.ac.in'));
+                                        },
+                                        child:
+                                        Image.asset(
+                                          "images/mail.png",
+                                          color: Colors.white,
+                                          fit: BoxFit.contain,
+                                          height: 30,
+                                          width: 30,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: height*0.1,
+                              ),
+                            ],
                           ),
                         ],
                       ),
@@ -99,31 +313,45 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                   child: SingleChildScrollView(
                     padding: EdgeInsets.all(height * 0.03),
                     child: Column(
-                      // crossAxisAlignment: CrossAxisAlignment.start,
-
+                      // crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         SizedBox(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              Text(
-                                'TOWNHALL',
-                                style: GoogleFonts.getFont(
-                                  'Josefin Sans',
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: height * 0.07,
-                                  color: AppColors.backColor,
-                                ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    "images/bigdata_stamp.png",
+                                    fit: BoxFit.fitWidth,
+                                    width: width * 0.07,
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text(
+                                        'TOWNHALL',
+                                        style: GoogleFonts.getFont(
+                                          'Josefin Sans',
+                                          fontWeight: FontWeight.w900,
+                                          fontSize: height * 0.05,
+                                          color: AppColors.backColor,
+                                        ),
+                                      ),
+                                      Text(
+                                        '2023',
+                                        style: GoogleFonts.getFont(
+                                          'Josefin Sans',
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: height * 0.06,
+                                          color: AppColors.backColor,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
                               ),
-                              Text(
-                                '2023',
-                                style: GoogleFonts.getFont(
-                                  'Josefin Sans',
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: height * 0.06,
-                                  color: AppColors.backColor,
-                                ),
-                              )
+
                             ],
                           ),
                         ),
@@ -153,11 +381,12 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                             ],
                           ),
                           width: width * 0.5,
-                          height: height * 2,
+                          height: height * 1.7,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              LinearProgressIndicator(value: _formProgress),
                               Padding(
                                 padding: EdgeInsets.all(height * 0.04),
                                 child: Text(
@@ -166,7 +395,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                     'Ubuntu',
                                     fontSize: height * 0.045,
                                     color: AppColors.backColor,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               ),
@@ -183,8 +412,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                         TextInputType.name,
                                         'Name',
                                         (value) {
-                                          if (value == null ||
-                                              value.isEmpty) {
+                                          if (value == null || value.isEmpty) {
                                             return 'Please Enter Your Name';
                                           } else if (!RegExp(r'^[a-z A-Z]+$')
                                               .hasMatch(value)) {
@@ -194,6 +422,8 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                         },
                                         fontSize,
                                         width,
+                                        nameNode,
+                                        selectedNode,
                                       ),
                                       textFormField(
                                         emailController,
@@ -201,11 +431,10 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                         TextInputType.emailAddress,
                                         'Email',
                                         (value) {
-                                          if (value == null ||
-                                              value.isEmpty) {
+                                          if (value == null || value.isEmpty) {
                                             return 'Please Enter Your Email';
                                           } else if (!RegExp(
-                                                  r'^[a-z\d]+@akgec\.ac\.in')
+                                                  r'^[a-z]+\d+@akgec\.ac\.in')
                                               .hasMatch(value)) {
                                             return 'Enter College Mail';
                                           }
@@ -213,66 +442,43 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                         },
                                         fontSize,
                                         width,
+                                        emailNode,
+                                        selectedNode,
                                       ),
                                       Row(
                                         children: [
-                                          //       Text(
-                                          //         'Year',
-                                          //         style: GoogleFonts.getFont(
-                                          //           'Ubuntu',
-                                          //           fontSize: fontSize,
-                                          //           color:
-                                          //               AppColors.backColor,
-                                          //           fontWeight:
-                                          //               FontWeight.w600,
-                                          //         ),
-                                          //       ),
                                           Expanded(
                                             child: Container(
-                                              margin: EdgeInsets.all( fontSize * 0.6),
+                                              margin: EdgeInsets.all(
+                                                  fontSize * 0.6),
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: height * 0.005),
                                               decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                    Radius.circular(8),
-                                                  ),
-                                                  border: Border.all(
-                                                    color: (DropDownSelector
-                                                                .selectedDropDown ==
-                                                            'Year')
-                                                        ? AppColors.backColor
-                                                        : Colors.transparent,
-                                                  )),
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                  Radius.circular(8),
+                                                ),
+                                                border: Border.all(
+                                                  color:
+                                                      (selectedNode == "Year")
+                                                          ? AppColors.backColor
+                                                          : Colors.transparent,
+                                                  width: 2,
+                                                ),
+                                              ),
                                               child: Row(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment
                                                         .spaceEvenly,
                                                 children: [
-                                                  GestureDetector(
-                                                    onTapCancel: () {
-                                                      setState(() {
-                                                        if (DropDownSelector
-                                                                .selectedDropDown !=
-                                                            'Year') {
-                                                          DropDownSelector
-                                                                  .selectedDropDown =
-                                                              'Year';
-                                                        } else {
-                                                          DropDownSelector
-                                                                  .selectedDropDown =
-                                                              'None';
-                                                        }
-                                                      });
-                                                    },
-                                                    child:
-                                                        DropdownButtonExample(
-                                                      fontSize: fontSize,
-                                                      list: year,
-                                                      label: 'Year',
-                                                          width: width,
-                                                    ),
+                                                  DropdownButtonExample(
+                                                    fontSize: fontSize,
+                                                    list: year,
+                                                    label: 'Year',
+                                                    width: width,
+                                                    focusNode: yearNode,
+                                                    selectedNode: selectedNode,
                                                   ),
                                                 ],
                                               ),
@@ -282,60 +488,42 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                               ? const SizedBox()
                                               : Expanded(
                                                   child: Container(
-                                                    margin:
-                                                        EdgeInsets.all(
-                                                                fontSize *
-                                                                    0.6),
+                                                    margin: EdgeInsets.all(
+                                                        fontSize * 0.6),
                                                     padding:
                                                         EdgeInsets.symmetric(
                                                             horizontal:
-                                                                height *
-                                                                    0.005),
+                                                                height * 0.005),
                                                     decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                .all(
-                                                          Radius.circular(8),
-                                                        ),
-                                                        border: Border.all(
-                                                          color: (DropDownSelector
-                                                                      .selectedDropDown ==
-                                                                  'Branch')
-                                                              ? AppColors
-                                                                  .backColor
-                                                              : Colors
-                                                                  .transparent,
-                                                        )),
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .all(
+                                                        Radius.circular(8),
+                                                      ),
+                                                      border: Border.all(
+                                                        color: (selectedNode ==
+                                                                "Branch")
+                                                            ? AppColors
+                                                                .backColor
+                                                            : Colors
+                                                                .transparent,
+                                                        width: 2,
+                                                      ),
+                                                    ),
                                                     child: Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
                                                               .spaceEvenly,
                                                       children: [
-                                                        GestureDetector(
-                                                          onTapCancel: () {
-                                                            setState(() {
-                                                              if (DropDownSelector
-                                                                      .selectedDropDown !=
-                                                                  'Branch') {
-                                                                DropDownSelector
-                                                                        .selectedDropDown =
-                                                                    'Branch';
-                                                              } else {
-                                                                DropDownSelector
-                                                                        .selectedDropDown =
-                                                                    'None';
-                                                              }
-                                                            });
-                                                          },
-                                                          child:
-                                                              DropdownButtonExample(
-                                                            fontSize:
-                                                                fontSize,
-                                                            list: branches,
-                                                            label: 'Branch',
-                                                                width: width,
-                                                          ),
+                                                        DropdownButtonExample(
+                                                          fontSize: fontSize,
+                                                          list: branches,
+                                                          label: 'Branch',
+                                                          width: width,
+                                                          focusNode: branchNode,
+                                                          selectedNode:
+                                                              selectedNode,
                                                         ),
                                                       ],
                                                     ),
@@ -345,61 +533,44 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                               ? const SizedBox()
                                               : Expanded(
                                                   child: Container(
-                                                    margin:
-                                                        EdgeInsets.all(
-                                                                fontSize *
-                                                                    0.6),
+                                                    margin: EdgeInsets.all(
+                                                        fontSize * 0.6),
                                                     padding:
                                                         EdgeInsets.symmetric(
                                                             horizontal:
-                                                                height *
-                                                                    0.005),
+                                                                height * 0.005),
                                                     decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                .all(
-                                                          Radius.circular(8),
-                                                        ),
-                                                        border: Border.all(
-                                                          color: (DropDownSelector
-                                                                      .selectedDropDown ==
-                                                                  'Section')
-                                                              ? AppColors
-                                                                  .backColor
-                                                              : Colors
-                                                                  .transparent,
-                                                        )),
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .all(
+                                                        Radius.circular(8),
+                                                      ),
+                                                      border: Border.all(
+                                                        color: (selectedNode ==
+                                                                "Section")
+                                                            ? AppColors
+                                                                .backColor
+                                                            : Colors
+                                                                .transparent,
+                                                        width: 2,
+                                                      ),
+                                                    ),
                                                     child: Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
                                                               .spaceEvenly,
                                                       children: [
-                                                        GestureDetector(
-                                                          onTapCancel: () {
-                                                            setState(() {
-                                                              if (DropDownSelector
-                                                                      .selectedDropDown !=
-                                                                  'Section') {
-                                                                DropDownSelector
-                                                                        .selectedDropDown =
-                                                                    'Section';
-                                                              } else {
-                                                                DropDownSelector
-                                                                        .selectedDropDown =
-                                                                    'None';
-                                                              }
-                                                            });
-                                                          },
-                                                          child:
-                                                              DropdownButtonExample(
-                                                            fontSize:
-                                                                fontSize,
-                                                            list:
-                                                                firstYearSections,
-                                                            label: 'Section',
-                                                                width: width,
-                                                          ),
+                                                        DropdownButtonExample(
+                                                          fontSize: fontSize,
+                                                          list:
+                                                              firstYearSections,
+                                                          label: 'Section',
+                                                          width: width,
+                                                          focusNode:
+                                                              sectionNode,
+                                                          selectedNode:
+                                                              selectedNode,
                                                         ),
                                                       ],
                                                     ),
@@ -410,78 +581,54 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                       (width > 900)
                                           ? const SizedBox()
                                           : Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              Expanded(
-                                        child: Container(
-                                              margin: EdgeInsets
-                                                  .all(
-                                                  fontSize *
-                                                      0.6),
-                                              padding: EdgeInsets
-                                                  .symmetric(
-                                                  horizontal:
-                                                  height *
-                                                      0.005),
-                                              decoration:
-                                              BoxDecoration(
-                                                  color: Colors
-                                                      .white,
-                                                  borderRadius:
-                                                  const BorderRadius
-                                                      .all(
-                                                    Radius
-                                                        .circular(
-                                                        8),
-                                                  ),
-                                                  border:
-                                                  Border
-                                                      .all(
-                                                    color: (DropDownSelector.selectedDropDown ==
-                                                        'Branch')
-                                                        ? AppColors
-                                                        .backColor
-                                                        : Colors
-                                                        .transparent,
-                                                  )),
-                                              child: Row(
-                                                mainAxisAlignment:
-                                                MainAxisAlignment
-                                                    .spaceEvenly,
-                                                children: [
-                                                  GestureDetector(
-                                                    onTapCancel:
-                                                        () {
-                                                      setState(
-                                                              () {
-                                                            if (DropDownSelector
-                                                                .selectedDropDown !=
-                                                                'Branch') {
-                                                              DropDownSelector.selectedDropDown =
-                                                              'Branch';
-                                                            } else {
-                                                              DropDownSelector.selectedDropDown =
-                                                              'None';
-                                                            }
-                                                          });
-                                                    },
-                                                    child:
-                                                    DropdownButtonExample(
-                                                      fontSize:
-                                                      fontSize,
-                                                      list:
-                                                      branches,
-                                                      label:
-                                                      'Branch',
-                                                      width: width,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                Expanded(
+                                                  child: Container(
+                                                    margin: EdgeInsets.all(
+                                                        fontSize * 0.6),
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal:
+                                                                height * 0.005),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .all(
+                                                        Radius.circular(8),
+                                                      ),
+                                                      border: Border.all(
+                                                        color: (selectedNode ==
+                                                                "Branch")
+                                                            ? AppColors
+                                                                .backColor
+                                                            : Colors
+                                                                .transparent,
+                                                        width: 2,
+                                                      ),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceEvenly,
+                                                      children: [
+                                                        DropdownButtonExample(
+                                                          fontSize: fontSize,
+                                                          list: branches,
+                                                          label: 'Branch',
+                                                          width: width,
+                                                          focusNode: branchNode,
+                                                          selectedNode:
+                                                              selectedNode,
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                        ),
-                                      ),
-                                            ],
-                                          ),
+                                                ),
+                                              ],
+                                            ),
                                       (width > 1200)
                                           ? const SizedBox()
                                           : Row(
@@ -490,61 +637,44 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                               children: [
                                                 Expanded(
                                                   child: Container(
-                                                    margin:
-                                                        EdgeInsets.all(
-                                                                fontSize *
-                                                                    0.6),
+                                                    margin: EdgeInsets.all(
+                                                        fontSize * 0.6),
                                                     padding:
                                                         EdgeInsets.symmetric(
                                                             horizontal:
-                                                                height *
-                                                                    0.005),
+                                                                height * 0.005),
                                                     decoration: BoxDecoration(
-                                                        color: Colors.white,
-                                                        borderRadius:
-                                                            const BorderRadius
-                                                                .all(
-                                                          Radius.circular(8),
-                                                        ),
-                                                        border: Border.all(
-                                                          color: (DropDownSelector
-                                                                      .selectedDropDown ==
-                                                                  'Section')
-                                                              ? AppColors
-                                                                  .backColor
-                                                              : Colors
-                                                                  .transparent,
-                                                        )),
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .all(
+                                                        Radius.circular(8),
+                                                      ),
+                                                      border: Border.all(
+                                                        color: (selectedNode ==
+                                                                "Section")
+                                                            ? AppColors
+                                                                .backColor
+                                                            : Colors
+                                                                .transparent,
+                                                        width: 2,
+                                                      ),
+                                                    ),
                                                     child: Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
                                                               .spaceEvenly,
                                                       children: [
-                                                        GestureDetector(
-                                                          onTapCancel: () {
-                                                            setState(() {
-                                                              if (DropDownSelector
-                                                                      .selectedDropDown !=
-                                                                  'Section') {
-                                                                DropDownSelector
-                                                                        .selectedDropDown =
-                                                                    'Section';
-                                                              } else {
-                                                                DropDownSelector
-                                                                        .selectedDropDown =
-                                                                    'None';
-                                                              }
-                                                            });
-                                                          },
-                                                          child:
-                                                              DropdownButtonExample(
-                                                            fontSize:
-                                                                fontSize,
-                                                            list:
-                                                                firstYearSections,
-                                                            label: 'Section',
-                                                                width: width,
-                                                          ),
+                                                        DropdownButtonExample(
+                                                          fontSize: fontSize,
+                                                          list:
+                                                              firstYearSections,
+                                                          label: 'Section',
+                                                          width: width,
+                                                          focusNode:
+                                                              sectionNode,
+                                                          selectedNode:
+                                                              selectedNode,
                                                         ),
                                                       ],
                                                     ),
@@ -552,30 +682,23 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                 ),
                                               ],
                                             ),
-                                      GestureDetector(
-                                        onTapCancel: () {
-                                          setState(() {
-                                            DropDownSelector
-                                                .selectedDropDown = 'None';
-                                          });
+                                      textFormField(
+                                        rollController,
+                                        TextInputAction.next,
+                                        TextInputType.number,
+                                        'University Roll No',
+                                        (value) {
+                                          if (value == null || value.isEmpty) {
+                                            return 'Please Enter Your Roll No';
+                                          } else if (value.length != 13) {
+                                            return 'Enter Valid Roll No';
+                                          }
+                                          return null;
                                         },
-                                        child: textFormField(
-                                          rollController,
-                                          TextInputAction.next,
-                                          TextInputType.number,
-                                          'University Roll No',
-                                          (value) {
-                                            if (value == null ||
-                                                value.isEmpty) {
-                                              return 'Please Enter Your Roll No';
-                                            } else if (value.length != 13) {
-                                              return 'Enter Valid Roll No';
-                                            }
-                                            return null;
-                                          },
-                                          fontSize,
-                                            width,
-                                        ),
+                                        fontSize,
+                                        width,
+                                        rollNode,
+                                        selectedNode,
                                       ),
                                       textFormField(
                                         phoneController,
@@ -583,8 +706,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                         TextInputType.phone,
                                         'WhatsApp No',
                                         (value) {
-                                          if (value == null ||
-                                              value.isEmpty) {
+                                          if (value == null || value.isEmpty) {
                                             return 'Please enter your WhatsApp No';
                                           } else if (value.length != 10) {
                                             return 'Enter a valid number';
@@ -593,6 +715,8 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                         },
                                         fontSize,
                                         width,
+                                        phoneNode,
+                                        selectedNode,
                                       ),
                                     ],
                                   ),
@@ -608,7 +732,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                     'Ubuntu',
                                     fontSize: height * 0.045,
                                     color: AppColors.backColor,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
                               ),
@@ -628,8 +752,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                 padding: EdgeInsets.symmetric(
                                     vertical: height * 0.015,
                                     horizontal: height * 0.04),
-                                child:
-                                    rateDomain("Machine Learning", context),
+                                child: rateDomain("Machine Learning", context),
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(
@@ -644,40 +767,49 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                 child: rateDomain("Designing", context),
                               ),
                               SizedBox(
-                                height: height * 0.015,
+                                height: height * 0.03,
                               ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      final isValid = _regFormKey
-                                          .currentState!
-                                          .validate();
-                                      if (!isValid) return;
+                              Padding(
+                                padding: EdgeInsets.symmetric(horizontal: width * 0.05),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                      child: ElevatedButton(
+                                        onPressed: () async {
+                                          final isValid =
+                                              _regFormKey.currentState!.validate();
+                                          if (!isValid) return;
 
-                                      Student.name = nameController.toString();
-                                      Student.email = emailController.toString();
-                                      Student.rollNo = rollController.toString();
-                                      Student.phone = phoneController.toString();
-                                      debugPrint(Student.email.toString());
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColors.backColor,
-                                      elevation: 0,
-                                      padding: const EdgeInsets.all(15),
-                                    ),
-                                    child: Text(
-                                      'Submit',
-                                      style: GoogleFonts.getFont(
-                                        'Ubuntu',
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: height * 0.035,
-                                        color: AppColors.whiteColor,
+                                          Student.name = nameController.text;
+                                          Student.email =
+                                              emailController.text.trim();
+                                          Student.rollNo =
+                                              rollController.text.trim();
+                                          Student.phone =
+                                              phoneController.text.trim();
+                                          debugPrint("cp0");
+                                          // Student.reCaptcha = (await GRecaptchaV3.execute('submit'))!;
+                                          registerUser();
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          backgroundColor: AppColors.backColor.withOpacity(0.9),
+                                          elevation: 10,
+                                          padding: const EdgeInsets.all(20),
+                                        ),
+                                        child: Text(
+                                          'Submit',
+                                          style: GoogleFonts.getFont(
+                                            'Ubuntu',
+                                            fontWeight: FontWeight.w300,
+                                            fontSize: height * 0.025,
+                                            color: AppColors.whiteColor,
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ],
                           ),

@@ -9,12 +9,16 @@ class DropdownButtonExample extends StatefulWidget {
   final List<String> list;
   final String label;
   final double width;
+  final FocusNode focusNode;
+  final String selectedNode;
   const DropdownButtonExample({
     Key? key,
     required this.fontSize,
     required this.list,
     required this.label,
     required this.width,
+    required this.focusNode,
+    required this.selectedNode,
   }) : super(key: key);
 
   @override
@@ -27,20 +31,22 @@ class _DropdownButtonExampleState extends State<DropdownButtonExample> {
   @override
   Widget build(BuildContext context) {
     return DropdownButton<String>(
+      focusNode: widget.focusNode,
       value: dropdownValue,
       icon: Icon(
         Icons.arrow_downward,
         size: widget.fontSize,
+        color: AppColors.backColor,
       ),
       elevation: 16,
-      style: GoogleFonts.getFont(
+      style:  GoogleFonts.getFont(
         'Ubuntu',
         fontSize: widget.fontSize,
         color: AppColors.backColor,
-        fontWeight: FontWeight.w600,
+        fontWeight: FontWeight.w300,
       ),
       underline: Container(
-        height: 2,
+        height: 1,
         color: Colors.transparent,
       ),
       onChanged: (String? value) {
