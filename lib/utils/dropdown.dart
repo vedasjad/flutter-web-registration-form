@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../app_colors.dart';
+import '../constants/app_colors.dart';
 import 'package:townhall/models/student.dart';
 // const List<String> list = <String>['One', 'Two', 'Three', 'Four'];
 

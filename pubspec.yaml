@@ -41,7 +41,7 @@ dependencies:
   glassmorphism: ^3.0.0
   http: ^0.13.5
   url_launcher: ^6.1.10
-  #g_recaptcha_v3: ^0.0.5
+  g_recaptcha_v3: ^0.0.4
 
 dev_dependencies:
   flutter_test:

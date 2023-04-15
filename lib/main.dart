@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:townhall/splash_screen.dart';
-// import 'package:g_recaptcha_v3/g_recaptcha_v3_web.dart';
-// import 'package:g_recaptcha_v3/g_recaptcha_v3.dart';
+import 'package:townhall/services/recaptcha_service.dart';
+import 'package:townhall/screens/splash_screen.dart';
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await GRecaptchaV3.ready('6Lfzy4glAAAAALddg_vG5fyhahVFsWxesIaCfphJ');
+  WidgetsFlutterBinding.ensureInitialized();
+  await RecaptchaService.initiate();
   runApp(const MyApp());
 }
 
