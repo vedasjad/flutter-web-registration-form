@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:townhall/screens/phone_reg_screen.dart';
-
 import 'desktop_reg_screen.dart';
 
 class SplashScreen extends StatefulWidget {

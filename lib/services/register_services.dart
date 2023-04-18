@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:townhall/utils/snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import '../models/student.dart';
@@ -33,15 +34,39 @@ class RegisterService {
           ? Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (_) => const SuccessScreen(),
+                builder: (_) => const Success_Screen(),
               ),
               (Route<dynamic> route) => false,
             )
-          : showSnackBar(
-              context,
-              "Registration Unsuccessful",
-            );
-
+          : (jsonDecode(res.body).toString() == "Email already exists")
+              ? showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      backgroundColor: Colors.white,
+                      insetPadding: EdgeInsets.all(10),
+                      content: Text(
+                        "This email has already been registered!!",
+                        style: GoogleFonts.getFont(
+                          'Ubuntu',
+                        ),
+                      ),
+                    );
+                  })
+              : showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      backgroundColor: Colors.white,
+                      insetPadding: EdgeInsets.all(10),
+                      content: Text(
+                        "Oops! An Error Occurred",
+                        style: GoogleFonts.getFont(
+                          'Ubuntu',
+                        ),
+                      ),
+                    );
+                  });
     } catch (e) {
       debugPrint(e.toString());
       // showSnackBar(context, e.toString());

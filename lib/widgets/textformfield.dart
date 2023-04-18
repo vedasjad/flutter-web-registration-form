@@ -20,20 +20,22 @@ textFormField(
       horizontal: fontSize * 0.6,
       vertical: fontSize * 0.7,
     ),
-    padding: EdgeInsets.fromLTRB(
-      fontSize * 0.4,
-      fontSize * 0.3,
-      fontSize * 0.4,
-      fontSize * 0.3,
-    ),
+    // padding: EdgeInsets.fromLTRB(
+    //   fontSize * 0.4,
+    //   fontSize * 0.3,
+    //   fontSize * 0.4,
+    //   fontSize * 0.3,
+    // ),
     decoration: BoxDecoration(
-      color: Colors.white,
-      border: Border.all(
-        color: (selectedNode == labelText)
-            ? AppColors.backColor
-            : Colors.transparent,
-        width: 2,
-      ),
+      color: (width > 710)
+          ?Colors.white
+          :AppColors.textFieldColorPhone,
+      // border: Border.all(
+      //   color: (selectedNode == labelText)
+      //       ? (width>710)?AppColors.backColor:AppColors.whiteColor
+      //       : Colors.transparent,
+      //   width: 2,
+      // ),
       borderRadius: BorderRadius.circular(8),
       // color: AppColors.textFieldColor,
     ),
@@ -45,53 +47,69 @@ textFormField(
       keyboardType: keyboardType,
       autofocus: true,
       textCapitalization: TextCapitalization.words,
+      cursorColor: (width>710)?AppColors.backColor:AppColors.whiteColor,
       decoration: InputDecoration(
         filled: false,
-        border: InputBorder.none,
-        errorBorder: InputBorder.none,
-        focusedBorder: InputBorder.none,
-        enabledBorder: InputBorder.none,
-        disabledBorder: InputBorder.none,
-        // isCollapsed: true,
-        isDense: true,
-        floatingLabelBehavior: FloatingLabelBehavior.auto,
-        // labelText: labelText,
-        // labelStyle: GoogleFonts.getFont(
-        //   'Ubuntu',
-        //   fontSize: fontSize,
-        //   color: AppColors.backColor,
-        //   fontWeight: FontWeight.w400,
-        // ),
-        // floatingLabelStyle: GoogleFonts.getFont(
-        //   'Ubuntu',
-        //   fontSize: fontSize * 0.5,
-        //   color: AppColors.backColor,
-        //   fontWeight: FontWeight.w400,
-        // ),
-        hintText: labelText,
-        hintStyle: GoogleFonts.getFont(
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(5),
+          ),
+          borderSide: BorderSide(
+            color: Colors.transparent,
+          ),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(5),
+          ),
+          borderSide: BorderSide(
+            color: (width>710)?Colors.red:Colors.red,
+            width: 2,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(5),
+          ),
+          borderSide: BorderSide(
+            color: (width>710)?AppColors.backColor:AppColors.whiteColor,
+          ),
+        ),
+        enabledBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(5),
+          ),
+          borderSide: BorderSide(
+            color: Colors.transparent,
+          ),
+        ),
+        labelText: labelText,
+        labelStyle: GoogleFonts.getFont(
           'Ubuntu',
           fontSize: fontSize,
-          color: AppColors.hintColor,
+          color: (width>710)?AppColors.backColor:AppColors.whiteColor,
           fontWeight: FontWeight.w300,
         ),
-        // errorStyle: GoogleFonts.getFont(
+        // hintText: 'Enter $labelText',
+        // hintStyle: GoogleFonts.getFont(
         //   'Ubuntu',
-        //   color: Colors.red,
-        //   h
+        //   fontSize: fontSize,
+        //   color: AppColors.hintColor,
         //   fontWeight: FontWeight.w400,
         // ),
+        errorStyle: GoogleFonts.getFont(
+          'Ubuntu',
+          // fontSize: fontSize,
+          color: (width>710)?Colors.red:AppColors.whiteColor,
+          fontWeight: FontWeight.w400,
+        ),
       ),
       style: GoogleFonts.getFont(
         'Ubuntu',
         fontSize: fontSize,
-        color: AppColors.backColor,
+        color: (width>710)?AppColors.backColor:AppColors.whiteColor,
         fontWeight: FontWeight.w300,
       ),
-      cursorColor: AppColors.backColor,
-      inputFormatters: [
-        FilteringTextInputFormatter.singleLineFormatter,
-      ],
       validator: validator,
     ),
   );

@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import '../constants/app_colors.dart';
 import '../widgets/dropdown_widget.dart';
 import 'package:glassmorphism/glassmorphism.dart';
@@ -23,12 +24,12 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
   final _regFormKey = GlobalKey<FormState>();
   final RegisterService registerService = RegisterService();
 
-  void registerUser() {
+  registerUser() async {
     //debugPrint("User Model Made");
     User user = User(
       name: Student.name,
       email: Student.email,
-      rollno: Student.rollNo,
+      stdno: Student.stdno,
       year: Student.year,
       branch: Student.branch,
       section: Student.section,
@@ -37,26 +38,26 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
       reCaptcha: Student.reCaptcha,
     );
 
-    registerService.registerUser(
+    await registerService.registerUser(
       context: context,
       user: user,
     );
   }
 
-  TextEditingController nameController = TextEditingController(text: "Asjad");
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailController =
-      TextEditingController(text: "asd123@akgec.ac.in");
+      TextEditingController();
   TextEditingController rollController =
-      TextEditingController(text: "1234567890123");
+      TextEditingController();
   TextEditingController phoneController =
-      TextEditingController(text: "1234567890");
+      TextEditingController();
 
   FocusNode nameNode = FocusNode();
   FocusNode emailNode = FocusNode();
   FocusNode yearNode = FocusNode();
   FocusNode branchNode = FocusNode();
   FocusNode sectionNode = FocusNode();
-  FocusNode rollNode = FocusNode();
+  FocusNode stdnode = FocusNode();
   FocusNode phoneNode = FocusNode();
 
   String selectedNode = "None";
@@ -68,7 +69,7 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
     yearNode.dispose();
     branchNode.dispose();
     sectionNode.dispose();
-    rollNode.dispose();
+    stdnode.dispose();
     phoneNode.dispose();
     nameController.dispose();
     emailController.dispose();
@@ -100,9 +101,9 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
         selectedNode = sectionNode.hasFocus ? "Section" : "None";
       });
     });
-    rollNode.addListener(() {
+    stdnode.addListener(() {
       setState(() {
-        selectedNode = rollNode.hasFocus ? "University Roll No" : "None";
+        selectedNode = stdnode.hasFocus ? "University Roll No" : "None";
       });
     });
     phoneNode.addListener(() {
@@ -114,6 +115,19 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
       setState(() {
         selectedNode = emailNode.hasFocus ? "Email" : "None";
       });
+    });
+  }
+
+  bool isLoading = false;
+
+  _startLoading() {
+    setState(() {
+      isLoading = true;
+    });
+  }
+  _endLoading(){
+    setState(() {
+      isLoading = false;
     });
   }
 
@@ -135,9 +149,8 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
             Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                gradient: const LinearGradient(
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
                   colors: [
                     Colors.black,
                     Colors.transparent,
@@ -153,28 +166,52 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
               height: height,
               color: Colors.transparent,
               child: SingleChildScrollView(
-                padding: EdgeInsets.all(height * 0.02),
+                padding: EdgeInsets.symmetric(
+                    vertical: height * 0.02, horizontal: width * 0.02),
                 child: Column(
                   children: [
                     SizedBox(
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                "assets/images/logo.png",
+                                fit: BoxFit.fitWidth,
+                                width: width * 0.12,
+                              ),
+                              Image.asset(
+                                "assets/images/title.png",
+                                fit: BoxFit.fitWidth,
+                                width: width * 0.3,
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: height * 0.01,
+                          ),
+                          Text(
+                            'PRESENTS',
+                            style: GoogleFonts.getFont(
+                              'Ubuntu',
+                              fontSize: height * 0.017,
+                              color: AppColors.whiteColor,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          SizedBox(
+                            height: height * 0.02,
+                          ),
                           Text(
                             'TOWNHALL',
                             style: GoogleFonts.getFont(
                               'Josefin Sans',
                               fontWeight: FontWeight.w900,
-                              fontSize: height * 0.06,
-                              color: AppColors.whiteColor,
-                            ),
-                          ),
-                          Text(
-                            '2023',
-                            style: GoogleFonts.getFont(
-                              'Josefin Sans',
-                              fontWeight: FontWeight.bold,
-                              fontSize: height * 0.06,
+                              fontSize: width * 0.1,
                               color: AppColors.whiteColor,
                             ),
                           ),
@@ -185,6 +222,7 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                       borderRadius: 5,
                       blur: 15,
                       margin: EdgeInsets.all(height * 0.01),
+                      // padding: EdgeInsets.all(height * 0.005),
                       border: 0,
                       linearGradient: LinearGradient(
                         begin: Alignment.topLeft,
@@ -206,426 +244,391 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                           const Color((0xFFFFFFFF)).withOpacity(0.5),
                         ],
                       ),
-                      width: width * 0.9,
-                      height: height,
+                      width: width * 0.95,
+                      height: height * 0.8,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: EdgeInsets.all(height * 0.02),
-                            child: Text(
-                              'Register Now!',
-                              style: GoogleFonts.getFont(
-                                'Ubuntu',
-                                fontSize: width * 0.08,
-                                color: AppColors.whiteColor,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.fromLTRB(
-                                height * 0.01, 0, height * 0.01, height * 0.01),
-                            child: Form(
-                              key: _regFormKey,
-                              child: Column(
-                                children: [
-                                  textFormField(
-                                    nameController,
-                                    TextInputAction.next,
-                                    TextInputType.name,
-                                    'Name',
-                                    (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please Enter Your Name';
-                                      } else if (!RegExp(r'^[a-z A-Z]+$')
-                                          .hasMatch(value)) {
-                                        return 'Enter Valid Name';
-                                      }
-                                      return null;
-                                    },
-                                    fontSize,
-                                    width,
-                                    nameNode,
-                                    selectedNode,
-                                  ),
-                                  textFormField(
-                                    emailController,
-                                    TextInputAction.next,
-                                    TextInputType.emailAddress,
-                                    'Email',
-                                    (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please Enter Your Email';
-                                      } else if (!RegExp(
-                                              r'^[a-z\d]+@akgec\.ac\.in')
-                                          .hasMatch(value)) {
-                                        return 'Enter College Mail';
-                                      }
-                                      return null;
-                                    },
-                                    fontSize,
-                                    width,
-                                    emailNode,
-                                    selectedNode,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Container(
-                                          margin:
-                                              EdgeInsets.all(fontSize * 0.6),
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: height * 0.005),
-                                          decoration: BoxDecoration(
-                                            color: Colors.white,
-                                            borderRadius:
-                                                const BorderRadius.all(
-                                              Radius.circular(8),
-                                            ),
-                                            border: Border.all(
-                                              color: (selectedNode == "Year")
-                                                  ? AppColors.backColor
-                                                  : Colors.transparent,
-                                              width: 2,
-                                            ),
+                          Form(
+                            key: _regFormKey,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: height * 0.02,
+                                ),
+                                textFormField(
+                                  nameController,
+                                  TextInputAction.next,
+                                  TextInputType.name,
+                                  'Name',
+                                  (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter our Name';
+                                    } else if (!RegExp(r'^[a-z A-Z]+$')
+                                        .hasMatch(value)) {
+                                      return 'Enter Valid Name';
+                                    }
+                                    return null;
+                                  },
+                                  fontSize,
+                                  width,
+                                  nameNode,
+                                  selectedNode,
+                                ),
+                                textFormField(
+                                  emailController,
+                                  TextInputAction.next,
+                                  TextInputType.emailAddress,
+                                  'Email',
+                                  (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter your Email';
+                                    } else if (!RegExp(
+                                            r'^[a-z\d]+@akgec\.ac\.in')
+                                        .hasMatch(value)) {
+                                      return 'Enter College Mail';
+                                    }
+                                    return null;
+                                  },
+                                  fontSize,
+                                  width,
+                                  emailNode,
+                                  selectedNode,
+                                ),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        margin: EdgeInsets.all(fontSize * 0.6),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: height * 0.005),
+                                        decoration: BoxDecoration(
+                                          color: (width > 710)
+                                              ? Colors.white
+                                              : AppColors.textFieldColorPhone,
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(5),
                                           ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              DropdownButtonWidget(
-                                                fontSize: fontSize,
-                                                list: year,
-                                                label: 'Year',
-                                                width: width,
-                                                focusNode: yearNode,
-                                                selectedNode: selectedNode,
-                                              ),
-                                            ],
+                                          border: Border.all(
+                                            color: (selectedNode == "Year")
+                                                ? (width > 710)
+                                                    ? AppColors.backColor
+                                                    : AppColors.whiteColor
+                                                : Colors.transparent,
+                                            width: 2,
                                           ),
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            DropdownButtonWidget(
+                                              fontSize: fontSize,
+                                              list: year,
+                                              label: 'Year',
+                                              width: width,
+                                              focusNode: yearNode,
+                                              selectedNode: selectedNode,
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                      (width < 300)
-                                          ? const SizedBox()
-                                          : Expanded(
-                                              child: Container(
-                                                margin: EdgeInsets.all(
-                                                    fontSize * 0.6),
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: height * 0.005),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                    Radius.circular(8),
-                                                  ),
-                                                  border: Border.all(
-                                                    color: (selectedNode ==
-                                                            "Branch")
-                                                        ? AppColors.backColor
-                                                        : Colors.transparent,
-                                                    width: 2,
-                                                  ),
+                                    ),
+                                    (width < 300)
+                                        ? const SizedBox()
+                                        : Expanded(
+                                            child: Container(
+                                              margin: EdgeInsets.all(
+                                                  fontSize * 0.6),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: height * 0.005),
+                                              decoration: BoxDecoration(
+                                                color: (width > 710)
+                                                    ? Colors.white
+                                                    : AppColors
+                                                        .textFieldColorPhone,
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                  Radius.circular(5),
                                                 ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    DropdownButtonWidget(
-                                                      fontSize: fontSize,
-                                                      list: branches,
-                                                      label: 'Branch',
-                                                      width: width,
-                                                      focusNode: branchNode,
-                                                      selectedNode:
-                                                          selectedNode,
-                                                    ),
-                                                  ],
+                                                border: Border.all(
+                                                  color: (selectedNode ==
+                                                          "Branch")
+                                                      ? (width > 710)
+                                                          ? AppColors.backColor
+                                                          : AppColors.whiteColor
+                                                      : Colors.transparent,
+                                                  width: 2,
                                                 ),
                                               ),
-                                            ),
-                                      (width < 1200)
-                                          ? const SizedBox()
-                                          : Expanded(
-                                              child: Container(
-                                                margin: EdgeInsets.all(
-                                                    fontSize * 0.6),
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: height * 0.005),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                    Radius.circular(8),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  DropdownButtonWidget(
+                                                    fontSize: fontSize,
+                                                    list: branches,
+                                                    label: 'Branch',
+                                                    width: width,
+                                                    focusNode: branchNode,
+                                                    selectedNode: selectedNode,
                                                   ),
-                                                  border: Border.all(
-                                                    color: (selectedNode ==
-                                                            "Section")
-                                                        ? AppColors.backColor
-                                                        : Colors.transparent,
-                                                    width: 2,
-                                                  ),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    DropdownButtonWidget(
-                                                      fontSize: fontSize,
-                                                      list: firstYearSections,
-                                                      label: 'Section',
-                                                      width: width,
-                                                      focusNode: sectionNode,
-                                                      selectedNode:
-                                                          selectedNode,
-                                                    ),
-                                                  ],
-                                                ),
+                                                ],
                                               ),
                                             ),
-                                    ],
-                                  ),
-                                  (width > 300)
-                                      ? const SizedBox()
-                                      : Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Expanded(
-                                              child: Container(
-                                                margin: EdgeInsets.all(
-                                                    fontSize * 0.6),
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: height * 0.005),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                    Radius.circular(8),
-                                                  ),
-                                                  border: Border.all(
-                                                    color: (selectedNode ==
-                                                            "Branch")
-                                                        ? AppColors.backColor
-                                                        : Colors.transparent,
-                                                    width: 2,
-                                                  ),
+                                          ),
+                                    (width < 1200)
+                                        ? const SizedBox()
+                                        : Expanded(
+                                            child: Container(
+                                              margin: EdgeInsets.all(
+                                                  fontSize * 0.6),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: height * 0.005),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                  Radius.circular(5),
                                                 ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    DropdownButtonWidget(
-                                                      fontSize: fontSize,
-                                                      list: branches,
-                                                      label: 'Branch',
-                                                      width: width,
-                                                      focusNode: branchNode,
-                                                      selectedNode:
-                                                          selectedNode,
-                                                    ),
-                                                  ],
+                                                border: Border.all(
+                                                  color: (selectedNode ==
+                                                          "Section")
+                                                      ? (width > 710)
+                                                          ? AppColors.backColor
+                                                          : AppColors.whiteColor
+                                                      : Colors.transparent,
+                                                  width: 2,
                                                 ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                  (width > 1200)
-                                      ? const SizedBox()
-                                      : Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Expanded(
-                                              child: Container(
-                                                margin: EdgeInsets.all(
-                                                    fontSize * 0.6),
-                                                padding: EdgeInsets.symmetric(
-                                                    horizontal: height * 0.005),
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                    Radius.circular(8),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  DropdownButtonWidget(
+                                                    fontSize: fontSize,
+                                                    list: firstYearSections,
+                                                    label: 'Section',
+                                                    width: width,
+                                                    focusNode: sectionNode,
+                                                    selectedNode: selectedNode,
                                                   ),
-                                                  border: Border.all(
-                                                    color: (selectedNode ==
-                                                            "Section")
-                                                        ? AppColors.backColor
-                                                        : Colors.transparent,
-                                                    width: 2,
-                                                  ),
-                                                ),
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceEvenly,
-                                                  children: [
-                                                    Text(
-                                                      'Section',
-                                                      style:
-                                                          GoogleFonts.getFont(
-                                                        'Ubuntu',
-                                                        fontSize: fontSize,
-                                                        color:
-                                                            AppColors.backColor,
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                      ),
-                                                    ),
-                                                    DropdownButtonWidget(
-                                                      fontSize: fontSize,
-                                                      list: firstYearSections,
-                                                      label: 'Section',
-                                                      width: width,
-                                                      focusNode: sectionNode,
-                                                      selectedNode:
-                                                          selectedNode,
-                                                    ),
-                                                  ],
-                                                ),
+                                                ],
                                               ),
                                             ),
-                                          ],
-                                        ),
-                                  textFormField(
-                                    rollController,
-                                    TextInputAction.next,
-                                    TextInputType.number,
-                                    "University Roll No",
-                                    (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please Enter Your Roll No';
-                                      } else if (value.length != 13) {
-                                        return 'Enter Valid Roll No';
-                                      }
-                                      return null;
-                                    },
-                                    fontSize,
-                                    width,
-                                    rollNode,
-                                    selectedNode,
-                                  ),
-                                  textFormField(
-                                    phoneController,
-                                    TextInputAction.done,
-                                    TextInputType.phone,
-                                    'WhatsApp No',
-                                    (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Please enter your WhatsApp No';
-                                      } else if (value.length != 10) {
-                                        return 'Enter a valid number';
-                                      }
-                                      return null;
-                                    },
-                                    fontSize,
-                                    width,
-                                    phoneNode,
-                                    selectedNode,
-                                  ),
-                                ],
-                              ),
+                                          ),
+                                  ],
+                                ),
+                                (width > 300)
+                                    ? const SizedBox()
+                                    : Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              margin: EdgeInsets.all(
+                                                  fontSize * 0.6),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: height * 0.005),
+                                              decoration: BoxDecoration(
+                                                color: (width > 710)
+                                                    ? Colors.white
+                                                    : AppColors
+                                                        .textFieldColorPhone,
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                  Radius.circular(5),
+                                                ),
+                                                border: Border.all(
+                                                  color: (selectedNode ==
+                                                          "Branch")
+                                                      ? (width > 710)
+                                                          ? AppColors.backColor
+                                                          : AppColors.whiteColor
+                                                      : Colors.transparent,
+                                                  width: 2,
+                                                ),
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
+                                                  DropdownButtonWidget(
+                                                    fontSize: fontSize,
+                                                    list: branches,
+                                                    label: 'Branch',
+                                                    width: width,
+                                                    focusNode: branchNode,
+                                                    selectedNode: selectedNode,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                (width > 1200)
+                                    ? const SizedBox()
+                                    : Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                              margin: EdgeInsets.all(
+                                                  fontSize * 0.6),
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: height * 0.005),
+                                              decoration: BoxDecoration(
+                                                color: (width > 710)
+                                                    ? AppColors.textFieldColor
+                                                    : AppColors
+                                                        .textFieldColorPhone,
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                  Radius.circular(5),
+                                                ),
+                                                border: Border.all(
+                                                  color: (selectedNode ==
+                                                          "Section")
+                                                      ? (width > 710)
+                                                          ? AppColors.backColor
+                                                          : AppColors.whiteColor
+                                                      : Colors.transparent,
+                                                  width: 2,
+                                                ),
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .center,
+                                                children: [
+                                                  Text(
+                                                    'Section',
+                                                    style: GoogleFonts.getFont(
+                                                      'Ubuntu',
+                                                      fontSize: fontSize,
+                                                      color: (width > 710)
+                                                          ? AppColors.backColor
+                                                          : AppColors
+                                                              .whiteColor,
+                                                      fontWeight:
+                                                          FontWeight.w300,
+                                                    ),
+                                                  ),
+                                                  SizedBox(width : width * 0.01),
+                                                  DropdownButtonWidget(
+                                                    fontSize: fontSize,
+                                                    list: firstYearSections,
+                                                    label: 'Section',
+                                                    width: width,
+                                                    focusNode: sectionNode,
+                                                    selectedNode: selectedNode,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                textFormField(
+                                  rollController,
+                                  TextInputAction.next,
+                                  TextInputType.number,
+                                  "Student No",
+                                  (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter your Student No';
+                                    } else if (value.length > 7 ||
+                                        value.length < 6) {
+                                      return 'Enter Valid Student No';
+                                    }
+                                    return null;
+                                  },
+                                  fontSize,
+                                  width,
+                                  stdnode,
+                                  selectedNode,
+                                ),
+                                textFormField(
+                                  phoneController,
+                                  TextInputAction.done,
+                                  TextInputType.phone,
+                                  'WhatsApp No',
+                                  (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter your WhatsApp No';
+                                    } else if (value.length != 10) {
+                                      return 'Enter a valid number';
+                                    }
+                                    return null;
+                                  },
+                                  fontSize,
+                                  width,
+                                  phoneNode,
+                                  selectedNode,
+                                ),
+                              ],
                             ),
                           ),
-                          // Padding(
-                          //   padding: EdgeInsets.symmetric(
-                          //       horizontal: width * 0.06,
-                          //       vertical: height * 0.02),
-                          //   child: Text(
-                          //     'Rate Your Knowledge',
-                          //     style: GoogleFonts.getFont(
-                          //       'Ubuntu',
-                          //       fontSize: height * 0.03,
-                          //       color: AppColors.whiteColor,
-                          //       fontWeight: FontWeight.w400,
-                          //     ),
-                          //   ),
-                          // ),
-                          // Padding(
-                          //   padding: EdgeInsets.symmetric(
-                          //     vertical: height * 0.015,
-                          //     horizontal: width * 0.06,
-                          //   ),
-                          //   child: rateDomain("App Development", context),
-                          // ),
-                          // Padding(
-                          //   padding: EdgeInsets.symmetric(
-                          //     vertical: height * 0.015,
-                          //     horizontal: width * 0.06,
-                          //   ),
-                          //   child: rateDomain("Web Development", context),
-                          // ),
-                          // Padding(
-                          //   padding: EdgeInsets.symmetric(
-                          //     vertical: height * 0.015,
-                          //     horizontal: width * 0.06,
-                          //   ),
-                          //   child: rateDomain("Machine Learning", context),
-                          // ),
-                          // Padding(
-                          //   padding: EdgeInsets.symmetric(
-                          //     vertical: height * 0.015,
-                          //     horizontal: width * 0.06,
-                          //   ),
-                          //   child: rateDomain("Big Data", context),
-                          // ),
-                          // Padding(
-                          //   padding: EdgeInsets.symmetric(
-                          //     vertical: height * 0.015,
-                          //     horizontal: width * 0.06,
-                          //   ),
-                          //   child: rateDomain("Designing", context),
-                          // ),
                           SizedBox(
                             height: height * 0.015,
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: height * 0.05,
-                                width : width * 0.83,
-                                child: Expanded(
-                                  child: ElevatedButton(
-                                    onPressed: () async {
-                                      //debugPrint(selectedNode);
-                                      final isValid =
-                                          _regFormKey.currentState!.validate();
-                                      if (!isValid) return;
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: width*0.03),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: SizedBox(
+                                    height: height * 0.06,
+                                    child: ElevatedButton(
+                                      onPressed: () async {
+                                        final isValid =
+                                            _regFormKey.currentState!.validate();
+                                        if (!isValid) return;
+                                        _startLoading();
 
-                                      await RecaptchaService.getToken();
+                                        await RecaptchaService.getToken();
 
-                                      Student.name = nameController.text;
-                                      Student.email = emailController.text.trim();
-                                      Student.rollNo = rollController.text.trim();
-                                      Student.phone = phoneController.text.trim();
-                                      //debugPrint("cp0");
-                                      registerUser();
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColors.backColor,
-                                      elevation: 0,
-                                      padding: const EdgeInsets.all(15),
-                                    ),
-                                    child: Text(
-                                      'Submit',
-                                      style: GoogleFonts.getFont(
-                                        'Ubuntu',
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: height * 0.035,
-                                        color: AppColors.whiteColor,
+                                        Student.name = nameController.text;
+                                        Student.email =
+                                            emailController.text.trim();
+                                        Student.stdno =
+                                            rollController.text.trim();
+                                        Student.phone =
+                                            phoneController.text.trim();
+
+                                        await registerUser();
+                                        _endLoading();
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor: AppColors.whiteColor,
+                                          elevation: 0,
+                                          padding: const EdgeInsets.all(15),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          )),
+                                      child: Text(
+                                        'Register',
+                                        style: GoogleFonts.getFont(
+                                          'Ubuntu',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: height * 0.022,
+                                          color: AppColors.backColor,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -634,6 +637,42 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                 ),
               ),
             ),
+            (isLoading)
+                ? GlassmorphicContainer(
+              width: width,
+              height: height,
+              borderRadius: 0,
+              linearGradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  const Color(0xFFffffff).withOpacity(0.1),
+                  const Color(0xFFFFFFFF).withOpacity(0.05),
+                ],
+                stops: const [
+                  0.1,
+                  1,
+                ],
+              ),
+              border: 0,
+              blur: 15,
+              borderGradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  const Color(0xFFffffff).withOpacity(0.5),
+                  const Color((0xFFFFFFFF)).withOpacity(0.5),
+                ],
+              ),
+              child: Center(
+                child: Lottie.asset(
+                  "images/loader.json",
+                  width: width * 0.4,
+                  fit: BoxFit.fitWidth,
+                ),
+              ),
+            )
+                : const SizedBox(),
           ],
         ),
       ),

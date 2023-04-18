@@ -36,19 +36,21 @@ class _DropdownButtonWidgetState extends State<DropdownButtonWidget> {
       icon: Icon(
         Icons.arrow_downward,
         size: widget.fontSize,
-        color: AppColors.backColor,
+        color: (widget.width>710)?AppColors.backColor:AppColors.whiteColor,
       ),
       elevation: 16,
       style:  GoogleFonts.getFont(
         'Ubuntu',
         fontSize: widget.fontSize,
-        color: AppColors.backColor,
+        color: (widget.width>710)?AppColors.backColor:AppColors.whiteColor,
         fontWeight: FontWeight.w300,
       ),
       underline: Container(
         height: 1,
         color: Colors.transparent,
       ),
+      menuMaxHeight: 400,
+      dropdownColor: (widget.width<710)?AppColors.backColor:AppColors.whiteColor,
       onChanged: (String? value) {
         setState(() {
           // DropDownSelector.selectedDropDown = 'None';

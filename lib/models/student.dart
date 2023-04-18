@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 class Student {
   static String name = '';
   static String email = '';
-  static String rollNo = '';
+  static String stdno = '';
   static String year = "1st Year";
   static String branch = "CSE";
   static String section = "S1";
@@ -17,7 +17,7 @@ class Student {
 class User {
   final String name;
   final String email;
-  final String rollno;
+  final String stdno;
   final String year;
   final String branch;
   final String section;
@@ -28,7 +28,7 @@ class User {
   User({
     required this.name,
     required this.email,
-    required this.rollno,
+    required this.stdno,
     required this.year,
     required this.branch,
     required this.section,
@@ -44,7 +44,7 @@ class User {
   
     result.addAll({'name': name});
     result.addAll({'email': email});
-    result.addAll({'rollno': rollno});
+    result.addAll({'stdno': stdno});
     result.addAll({'year': year});
     result.addAll({'branch': branch});
     result.addAll({'section': section});
@@ -59,7 +59,7 @@ class User {
     return User(
       name: map['name'] ?? '',
       email: map['email'] ?? '',
-      rollno: map['rollno'] ?? '',
+      stdno: map['stdno'] ?? '',
       year: map['year'] ?? '',
       branch: map['branch'] ?? '',
       section: map['section'] ?? '',
@@ -76,7 +76,7 @@ class User {
   User copyWith({
     String? name,
     String? email,
-    String? rollno,
+    String? stdno,
     String? year,
     String? branch,
     String? section,
@@ -87,7 +87,7 @@ class User {
     return User(
       name: name ?? this.name,
       email: email ?? this.email,
-      rollno: rollno ?? this.rollno,
+      stdno: stdno ?? this.stdno,
       year: year ?? this.year,
       branch: branch ?? this.branch,
       section: section ?? this.section,
@@ -99,7 +99,7 @@ class User {
 
   @override
   String toString() {
-    return 'User(name: $name, email: $email, rollno: $rollno, year: $year, branch: $branch, section: $section, phone: $phone, domain: $domain, reCaptcha: $reCaptcha)';
+    return 'User(name: $name, email: $email, stdno: $stdno, year: $year, branch: $branch, section: $section, phone: $phone, domain: $domain, reCaptcha: $reCaptcha)';
   }
 
   @override
@@ -109,7 +109,7 @@ class User {
     return other is User &&
       other.name == name &&
       other.email == email &&
-      other.rollno == rollno &&
+      other.stdno == stdno &&
       other.year == year &&
       other.branch == branch &&
       other.section == section &&
@@ -122,7 +122,7 @@ class User {
   int get hashCode {
     return name.hashCode ^
       email.hashCode ^
-      rollno.hashCode ^
+      stdno.hashCode ^
       year.hashCode ^
       branch.hashCode ^
       section.hashCode ^

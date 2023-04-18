@@ -32,13 +32,13 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
   final double _formProgress = 0;
   final _regFormKey = GlobalKey<FormState>();
   final RegisterService registerService = RegisterService();
-  registerUser() {
-    debugPrint("User Model Made");
+  registerUser() async {
+    //debugPrint("User Model Made");
 
     User user = User(
       name: Student.name,
       email: Student.email,
-      rollno: Student.rollNo,
+      stdno: Student.stdno,
       year: Student.year,
       branch: Student.branch,
       section: Student.section,
@@ -47,26 +47,26 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
       reCaptcha: Student.reCaptcha,
     );
 
-    registerService.registerUser(
+    await registerService.registerUser(
       context: context,
       user: user,
     );
   }
 
-  TextEditingController nameController = TextEditingController(text: "Asjad");
+  TextEditingController nameController = TextEditingController();
   TextEditingController emailController =
-      TextEditingController(text: "asd123@akgec.ac.in");
+      TextEditingController();
   TextEditingController rollController =
-      TextEditingController(text: "1234567890123");
+      TextEditingController();
   TextEditingController phoneController =
-      TextEditingController(text: "1234567890");
+      TextEditingController();
 
   FocusNode nameNode = FocusNode();
   FocusNode emailNode = FocusNode();
   FocusNode yearNode = FocusNode();
   FocusNode branchNode = FocusNode();
   FocusNode sectionNode = FocusNode();
-  FocusNode rollNode = FocusNode();
+  FocusNode stdNode = FocusNode();
   FocusNode phoneNode = FocusNode();
 
   String selectedNode = "None";
@@ -78,7 +78,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
     yearNode.dispose();
     branchNode.dispose();
     sectionNode.dispose();
-    rollNode.dispose();
+    stdNode.dispose();
     phoneNode.dispose();
     nameController.dispose();
     emailController.dispose();
@@ -110,9 +110,9 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
         selectedNode = sectionNode.hasFocus ? "Section" : "None";
       });
     });
-    rollNode.addListener(() {
+    stdNode.addListener(() {
       setState(() {
-        selectedNode = rollNode.hasFocus ? "University Roll No" : "None";
+        selectedNode = stdNode.hasFocus ? "University Roll No" : "None";
       });
     });
     phoneNode.addListener(() {
@@ -133,11 +133,11 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
     setState(() {
       isLoading = true;
     });
+  }
 
-    Timer(const Duration(seconds: 5), () {
-      setState(() {
-        isLoading = false;
-      });
+  _endLoading(){
+    setState(() {
+      isLoading = false;
     });
   }
 
@@ -320,27 +320,15 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                 ],
                               ),
                               width: width * 0.5,
-                              height: height * 1.7,
+                              height: height * 0.9,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   LinearProgressIndicator(value: _formProgress),
                                   Padding(
-                                    padding: EdgeInsets.all(height * 0.04),
-                                    child: Text(
-                                      'Register Now!',
-                                      style: GoogleFonts.getFont(
-                                        'Ubuntu',
-                                        fontSize: height * 0.045,
-                                        color: AppColors.backColor,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                  Padding(
                                     padding: EdgeInsets.fromLTRB(height * 0.03,
-                                        0, height * 0.03, height * 0.03),
+                                        height * 0.07, height * 0.03, height * 0.03),
                                     child: Form(
                                       key: _regFormKey,
                                       child: Column(
@@ -353,7 +341,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                             (value) {
                                               if (value == null ||
                                                   value.isEmpty) {
-                                                return 'Please Enter Your Name';
+                                                return 'Please enter Your Name';
                                               } else if (!RegExp(
                                                       r'^[a-z A-Z]+$')
                                                   .hasMatch(value)) {
@@ -374,7 +362,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                             (value) {
                                               if (value == null ||
                                                   value.isEmpty) {
-                                                return 'Please Enter Your Email';
+                                                return 'Please enter Your Email';
                                               } else if (!RegExp(
                                                       r'^[a-z]+\d+@akgec\.ac\.in')
                                                   .hasMatch(value)) {
@@ -400,7 +388,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                     color: Colors.white,
                                                     borderRadius:
                                                         const BorderRadius.all(
-                                                      Radius.circular(8),
+                                                      Radius.circular(5),
                                                     ),
                                                     border: Border.all(
                                                       color: (selectedNode ==
@@ -445,7 +433,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                           borderRadius:
                                                               const BorderRadius
                                                                   .all(
-                                                            Radius.circular(8),
+                                                            Radius.circular(5),
                                                           ),
                                                           border: Border.all(
                                                             color: (selectedNode ==
@@ -494,7 +482,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                           borderRadius:
                                                               const BorderRadius
                                                                   .all(
-                                                            Radius.circular(8),
+                                                            Radius.circular(5),
                                                           ),
                                                           border: Border.all(
                                                             color: (selectedNode ==
@@ -550,7 +538,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                           borderRadius:
                                                               const BorderRadius
                                                                   .all(
-                                                            Radius.circular(8),
+                                                            Radius.circular(5),
                                                           ),
                                                           border: Border.all(
                                                             color: (selectedNode ==
@@ -605,7 +593,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                           borderRadius:
                                                               const BorderRadius
                                                                   .all(
-                                                            Radius.circular(8),
+                                                            Radius.circular(5),
                                                           ),
                                                           border: Border.all(
                                                             color: (selectedNode ==
@@ -644,19 +632,19 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                             rollController,
                                             TextInputAction.next,
                                             TextInputType.number,
-                                            'University Roll No',
+                                            'Student No',
                                             (value) {
                                               if (value == null ||
                                                   value.isEmpty) {
-                                                return 'Please Enter Your Roll No';
-                                              } else if (value.length != 13) {
-                                                return 'Enter Valid Roll No';
+                                                return 'Please Enter Your Student No';
+                                              } else if (value.length > 7 || value.length <6) {
+                                                return 'Enter Valid Student No';
                                               }
                                               return null;
                                             },
                                             fontSize,
                                             width,
-                                            rollNode,
+                                            stdNode,
                                             selectedNode,
                                           ),
                                           textFormField(
@@ -687,7 +675,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                   ),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
-                                        horizontal: width * 0.05),
+                                        horizontal: width *0.02,),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
@@ -700,18 +688,20 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                   .validate();
                                               if (!isValid) return;
                                               _startLoading();
+
                                               await RecaptchaService.getToken();
 
                                               Student.name =
                                                   nameController.text;
                                               Student.email =
                                                   emailController.text.trim();
-                                              Student.rollNo =
+                                              Student.stdno =
                                                   rollController.text.trim();
                                               Student.phone =
                                                   phoneController.text.trim();
 
                                               await registerUser();
+                                              _endLoading();
                                             },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: AppColors
@@ -721,7 +711,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                               padding: const EdgeInsets.all(20),
                                             ),
                                             child: Text(
-                                              'Submit',
+                                              'Register',
                                               style: GoogleFonts.getFont(
                                                 'Ubuntu',
                                                 fontWeight: FontWeight.w300,
@@ -734,12 +724,6 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                       ],
                                     ),
                                   ),
-                                  // Container(
-                                  //   height: 50,
-                                  //   width: MediaQuery.of(context).size.width,
-                                  //   margin: const EdgeInsets.all(20),
-                                  //   child:
-                                  // ),
                                 ],
                               ),
                             ),
