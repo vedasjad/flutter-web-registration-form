@@ -100,7 +100,7 @@ class _Success_ScreenState extends State<Success_Screen> {
                   await launchUrl(linkedin);
                 }),
                 child: SvgPicture.asset(
-                  "images/linkedin.svg",
+                  "images/linkedin2.svg",
                   height: (width > 800) ? 48 : 30,
                   width: (width > 800) ? 48 : 30,
                 ),
