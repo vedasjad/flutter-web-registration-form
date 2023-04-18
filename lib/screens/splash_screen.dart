@@ -14,6 +14,6 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    return (width>600)?const DesktopRegScreen():const PhoneRegistrationScreen();
+    return (width>710) ? const DesktopRegScreen():const PhoneRegistrationScreen();
   }
 }
