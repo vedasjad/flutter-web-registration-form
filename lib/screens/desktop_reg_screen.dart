@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -320,7 +318,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                 ],
                               ),
                               width: width * 0.5,
-                              height: height * 0.9,
+                              height: height ,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -637,7 +635,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                               if (value == null ||
                                                   value.isEmpty) {
                                                 return 'Please Enter Your Student No';
-                                              } else if (value.length > 7 || value.length <6) {
+                                              } else if (value.length > 8 || value.length <7 || (!value.toString().startsWith('21') && !value.toString().startsWith('22') && !value.toString().startsWith('20'))) {
                                                 return 'Enter Valid Student No';
                                               }
                                               return null;
@@ -656,7 +654,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                               if (value == null ||
                                                   value.isEmpty) {
                                                 return 'Please enter your WhatsApp No';
-                                              } else if (value.length != 10) {
+                                              } else if (value.length != 10 || value.toString().startsWith('1') || value.toString().startsWith('2') || value.toString().startsWith('3') || value.toString().startsWith('4')) {
                                                 return 'Enter a valid number';
                                               }
                                               return null;
@@ -683,10 +681,30 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                         Expanded(
                                           child: ElevatedButton(
                                             onPressed: () async {
+
+                                              if (!emailController.text.contains(rollController.text)){
+                                                showDialog(
+                                                    context: context,
+                                                    builder: (context) {
+                                                      return AlertDialog(
+                                                        backgroundColor: Colors.white,
+                                                        insetPadding: const EdgeInsets.all(10),
+                                                        content: Text(
+                                                          "Enter Correct College Email!",
+                                                          style: GoogleFonts.getFont(
+                                                            'Ubuntu',
+                                                          ),
+                                                        ),
+                                                      );
+                                                    });
+                                                return;
+                                              }
                                               final isValid = _regFormKey
                                                   .currentState!
                                                   .validate();
                                               if (!isValid) return;
+
+
                                               _startLoading();
 
                                               await RecaptchaService.getToken();
@@ -764,7 +782,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                   ),
                   child: Center(
                     child: Lottie.asset(
-                      "images/loader.json",
+                      "images/loader2.json",
                       width: width * 0.1,
                       fit: BoxFit.fitWidth,
                     ),

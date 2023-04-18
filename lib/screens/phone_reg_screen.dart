@@ -544,8 +544,7 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                   (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter your Student No';
-                                    } else if (value.length > 7 ||
-                                        value.length < 6) {
+                                    } else if (value.length > 8 || value.length <7 || (!value.toString().startsWith('21') && !value.toString().startsWith('22') && !value.toString().startsWith('20'))) {
                                       return 'Enter Valid Student No';
                                     }
                                     return null;
@@ -563,7 +562,7 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                   (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter your WhatsApp No';
-                                    } else if (value.length != 10) {
+                                    } else if (value.length != 10 || value.toString().startsWith('1') || value.toString().startsWith('2') || value.toString().startsWith('3') || value.toString().startsWith('4')) {
                                       return 'Enter a valid number';
                                     }
                                     return null;
@@ -589,6 +588,25 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                     height: height * 0.06,
                                     child: ElevatedButton(
                                       onPressed: () async {
+
+                                        if (!emailController.text.contains(rollController.text)){
+                                          showDialog(
+                                              context: context,
+                                              builder: (context) {
+                                                return AlertDialog(
+                                                  backgroundColor: Colors.white,
+                                                  insetPadding: const EdgeInsets.all(10),
+                                                  content: Text(
+                                                    "Enter Correct College Email!",
+                                                    style: GoogleFonts.getFont(
+                                                      'Ubuntu',
+                                                    ),
+                                                  ),
+                                                );
+                                              });
+                                          return;
+                                        }
+
                                         final isValid =
                                             _regFormKey.currentState!.validate();
                                         if (!isValid) return;
@@ -666,8 +684,8 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
               ),
               child: Center(
                 child: Lottie.asset(
-                  "images/loader.json",
-                  width: width * 0.4,
+                  "images/loader2.json",
+                  width: width * 0.1,
                   fit: BoxFit.fitWidth,
                 ),
               ),

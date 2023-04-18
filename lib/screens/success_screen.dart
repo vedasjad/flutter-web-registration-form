@@ -1,5 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -47,14 +49,14 @@ class _Success_ScreenState extends State<Success_Screen> {
             child: AnimatedTextKit(
               animatedTexts: [
                 TypewriterAnimatedText(
-                  'Congratulations !! \nYou have been registered successfully.',
+                  'Congratulations !! \nYou have been registered successfully',
                   textAlign: TextAlign.center,
                   textStyle: GoogleFonts.getFont(
                     "Ubuntu",
                     //fontSize: (width > 900) ? width * 0.1 : width * 0.07,
                     fontWeight: FontWeight.bold,
                   ),
-                  speed: const Duration(milliseconds: 100),
+                  speed: const Duration(milliseconds: 70),
                 ),
               ],
               totalRepeatCount: 1,
@@ -73,10 +75,11 @@ class _Success_ScreenState extends State<Success_Screen> {
                 onTap: (() async {
                   await launchUrl(website);
                 }),
-                child: Image.asset(
-                  "images/website.png",
-                  height: (width > 800) ? 48 : 30,
-                  width: (width > 800) ? 48 : 30,
+                child: SvgPicture.asset(
+                  "images/website.svg",
+                  color: CupertinoColors.activeBlue,
+                  height: (width > 800) ? 46 : 28,
+                  width: (width > 800) ? 46 : 28,
                 ),
               ),
               Container(
@@ -85,8 +88,8 @@ class _Success_ScreenState extends State<Success_Screen> {
                   onTap: (() async {
                     await launchUrl(insta);
                   }),
-                  child: Image.asset(
-                    "images/insta.png",
+                  child: SvgPicture.asset(
+                    "images/insta.svg",
                     height: (width > 800) ? 48 : 30,
                     width: (width > 800) ? 48 : 30,
                   ),
@@ -96,8 +99,8 @@ class _Success_ScreenState extends State<Success_Screen> {
                 onTap: (() async {
                   await launchUrl(linkedin);
                 }),
-                child: Image.asset(
-                  "images/linkedin.png",
+                child: SvgPicture.asset(
+                  "images/linkedin.svg",
                   height: (width > 800) ? 48 : 30,
                   width: (width > 800) ? 48 : 30,
                 ),
