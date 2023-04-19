@@ -1,6 +1,6 @@
 {
-    "name": "recaptcha_v3_tutorial",
-    "short_name": "recaptcha_v3_tutorial",
+    "name": "Townhall",
+    "short_name": "Townhall",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

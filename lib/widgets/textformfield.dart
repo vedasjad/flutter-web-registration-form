@@ -110,6 +110,7 @@ textFormField(
         color: (width>710)?AppColors.backColor:AppColors.whiteColor,
         fontWeight: FontWeight.w300,
       ),
+      autovalidateMode: AutovalidateMode.always,
       validator: validator,
     ),
   );

@@ -9,18 +9,24 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f51ddf34-f0d4-4be0-a2b0-7d4cc8cd4dad" name="Changes" comment="Validations Applied">
-      <change afterPath="$PROJECT_DIR$/assets/images/insta.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/website.svg" afterDir="false" />
+    <list default="true" id="f51ddf34-f0d4-4be0-a2b0-7d4cc8cd4dad" name="Changes" comment="LinkedIn Icon Changed">
+      <change beforePath="$PROJECT_DIR$/.dart_tool/flutter_build/f96c8b0d95052345e73b74f7f16dbaaa/kernel_snapshot.d" beforeDir="false" afterPath="$PROJECT_DIR$/.dart_tool/flutter_build/f96c8b0d95052345e73b74f7f16dbaaa/kernel_snapshot.d" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/Comp 1.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/Comp 1.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/linkedin.svg" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/linkedin.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/images/loader2.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/images/loader2.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/7.5/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/7.5/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/7.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/7.5/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/7.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/7.5/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/7.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/7.5/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/android/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/constants/lists.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/constants/lists.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/desktop_reg_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/desktop_reg_screen.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/phone_reg_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/phone_reg_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/success_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/success_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/recaptcha_services.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/recaptcha_services.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/textformfield.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/textformfield.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/favicon.png" beforeDir="false" afterPath="$PROJECT_DIR$/web/favicon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/web/manifest.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,24 +59,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;com.google.services.firebase.aqiPopupShown&quot;: &quot;true&quot;,
-    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
-    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/91962/StudioProjects/BDCoE_App&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;dart.settings&quot;,
-    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "cidr.known.project.marker": "true",
+    "com.google.services.firebase.aqiPopupShown": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "io.flutter.reload.alreadyRun": "true",
+    "last_opened_file_path": "C:/Users/91962/StudioProjects/townhall/web",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "dart.settings",
+    "show.migrate.to.gradle.popup": "false"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\91962\StudioProjects\townhall\web" />
       <recent name="C:\Users\91962\StudioProjects\townhall" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -144,7 +151,21 @@
       <option name="project" value="LOCAL" />
       <updated>1681821128323</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Validations Applied">
+      <created>1681848860619</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1681848860619</updated>
+    </task>
+    <task id="LOCAL-00007" summary="LinkedIn Icon Changed">
+      <created>1681849035651</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1681849035651</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -166,6 +187,7 @@
     <MESSAGE value="Captcha Enabled" />
     <MESSAGE value="Loader Enabled" />
     <MESSAGE value="Validations Applied" />
-    <option name="LAST_COMMIT_MESSAGE" value="Validations Applied" />
+    <MESSAGE value="LinkedIn Icon Changed" />
+    <option name="LAST_COMMIT_MESSAGE" value="LinkedIn Icon Changed" />
   </component>
 </project>

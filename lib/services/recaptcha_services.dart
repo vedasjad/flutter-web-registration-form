@@ -9,6 +9,7 @@ class RecaptchaService {
   static Future<void> initiate() async =>
       await GRecaptchaV3.ready(Config.siteKey);
 
+
   static Future<void> getToken() async {
     Student.reCaptcha = await GRecaptchaV3.execute('submit') ?? '';
   }
