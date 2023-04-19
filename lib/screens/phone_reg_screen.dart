@@ -589,7 +589,7 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                 children: [
                                   Expanded(
                                     child: SizedBox(
-                                      height: height * 0.075,
+                                      height: height * 0.08,
                                       child: ElevatedButton(
                                         onPressed: () async {
 

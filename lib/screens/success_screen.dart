@@ -30,8 +30,8 @@ class _Success_ScreenState extends State<Success_Screen> {
         children: [
           const Expanded(
             child: SizedBox(
-              //height: height * 0.2,
-            ),
+                //height: height * 0.2,
+                ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -63,6 +63,24 @@ class _Success_ScreenState extends State<Success_Screen> {
               pause: const Duration(milliseconds: 1000),
               displayFullTextOnTap: true,
               stopPauseOnTap: true,
+            ),
+          ),
+          Container(
+            width: width * 0.8,
+            margin: EdgeInsets.symmetric( horizontal:  width * 0.15,),
+            padding: EdgeInsets.all(height * 0.02,),
+            decoration: BoxDecoration(
+              //color: Colors.white,
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Text(
+              "You are required to submit the registration fees, ₹200 to confirm your registration and seat for the event.\n\nHelp desks will be set up at the Back Block in the college campus to collect the registration fees.\n\nTimings for collection of Registration Fees: \n\n10:15 AM-11:00 AM and Lunch Break at Back Block\n\n4:00 PM onwards at BIG DATA LAB(Project Lab) , 3rd Floor CSIT Block",
+              style: GoogleFonts.getFont(
+                "Ubuntu",
+                //fontSize: (width > 900) ? width * 0.1 : width * 0.07,
+                fontWeight: FontWeight.w400,
+              ),
+              textAlign: TextAlign.center,
             ),
           ),
           SizedBox(
@@ -109,8 +127,8 @@ class _Success_ScreenState extends State<Success_Screen> {
           ),
           const Expanded(
             child: SizedBox(
-              //height: height * 0.2,
-            ),
+                //height: height * 0.2,
+                ),
           ),
           Container(
             height: height * 0.013,
