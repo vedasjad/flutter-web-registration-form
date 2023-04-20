@@ -342,9 +342,11 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                     value.isEmpty) {
                                                   return 'Please enter Your Name';
                                                 } else if (!RegExp(
-                                                        r'^[a-z A-Z]+$')
+                                                        r'^(?=.{1,30}$)([a-zA-Z]{1,15}(?:\s[a-zA-Z]{1,15}){0,4})$')
                                                     .hasMatch(value)) {
                                                   return 'Enter Valid Name';
+                                                } else if(value.length>30){
+                                                  return 'Name is too long';
                                                 }
                                                 return null;
                                               },
@@ -636,7 +638,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                 if (value == null ||
                                                     value.isEmpty) {
                                                   return 'Please Enter Your Student No';
-                                                } else if (value.length > 8 || value.length <7 || (!value.toString().startsWith('21') && !value.toString().startsWith('22') && !value.toString().startsWith('20'))) {
+                                                } else if (value.length > 8 || value.length <7 || (!value.toString().startsWith('21') && !value.toString().startsWith('22'))) {
                                                   return 'Enter Valid Student No';
                                                 }
                                                 return null;
@@ -682,6 +684,18 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                           Expanded(
                                             child: ElevatedButton(
                                               onPressed: () async {
+                                                final isValid = _regFormKey
+                                                    .currentState!
+                                                    .validate();
+                                                if (!isValid) return;
+                                                Student.name =
+                                                    nameController.text;
+                                                Student.email =
+                                                    emailController.text.trim();
+                                                Student.stdno =
+                                                    rollController.text.trim();
+                                                Student.phone =
+                                                    phoneController.text.trim();
 
                                                 if (!emailController.text.contains(rollController.text)){
                                                   showDialog(
@@ -700,24 +714,78 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                       });
                                                   return;
                                                 }
-                                                final isValid = _regFormKey
-                                                    .currentState!
-                                                    .validate();
-                                                if (!isValid) return;
 
+                                                if(!Student.stdno.startsWith("21") && Student.year=='2nd Year' || !Student.stdno.startsWith("22") && Student.year=='1st Year'){
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AlertDialog(
+                                                          backgroundColor: Colors.white,
+                                                          insetPadding: const EdgeInsets.all(10),
+                                                          content: Text(
+                                                            "Student No. doesn't match with your year",
+                                                            style: GoogleFonts.getFont(
+                                                              'Ubuntu',
+                                                            ),
+                                                          ),
+                                                        );
+                                                      });
+                                                  return;
+                                                }
+
+                                                if(Student.year=="1st Year" && (Student.section=="I" || Student.section == "II" || Student.section == "III") || Student.year=="2nd Year" && Student.section != "I" && Student.section != "II" && Student.section != "III"){
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AlertDialog(
+                                                          backgroundColor: Colors.white,
+                                                          insetPadding: const EdgeInsets.all(10),
+                                                          content: Text(
+                                                            "Section doesn't match with your year",
+                                                            style: GoogleFonts.getFont(
+                                                              'Ubuntu',
+                                                            ),
+                                                          ),
+                                                        );
+                                                      });
+                                                  return;
+                                                }
+
+                                                if(Student.branch == "CSE-AIML" && !Student.stdno.startsWith("21153") && !Student.stdno.startsWith("22153")
+                                                    || Student.branch == "CSE" && !Student.stdno.startsWith("2110") && !Student.stdno.startsWith("2210")
+                                                    || Student.branch == "CS" && !Student.stdno.startsWith("2112") && !Student.stdno.startsWith("2212")
+                                                    || Student.branch == "IT" && !Student.stdno.startsWith("2113") && !Student.stdno.startsWith("2213")
+                                                    || Student.branch == "CSIT" && !Student.stdno.startsWith("2111") && !Student.stdno.startsWith("2211")
+                                                    || Student.branch == "ECE" && !Student.stdno.startsWith("2131") && !Student.stdno.startsWith("2231")
+                                                    || Student.branch == "EN" && !Student.stdno.startsWith("2130") && !Student.stdno.startsWith("2230")
+                                                    || Student.branch == "CE" && !Student.stdno.startsWith("2100") && !Student.stdno.startsWith("2200")
+                                                    || Student.branch == "AIML" && !Student.stdno.startsWith("21164") && !Student.stdno.startsWith("22164")
+                                                    || Student.branch == "CSE-DS" && !Student.stdno.startsWith("21154") && !Student.stdno.startsWith("22154")
+                                                    || Student.branch == "ME" && !Student.stdno.startsWith("2140") && !Student.stdno.startsWith("2240")
+                                                    || Student.branch == "CS-HINDI" && !Student.stdno.startsWith("21169") && !Student.stdno.startsWith("22169")
+                                                || Student.branch == "MCA" && !Student.stdno.startsWith("2114") && !Student.stdno.startsWith("2214")){
+                                                  showDialog(
+                                                      context: context,
+                                                      builder: (context) {
+                                                        return AlertDialog(
+                                                          backgroundColor: Colors.white,
+                                                          insetPadding: const EdgeInsets.all(10),
+                                                          content: Text(
+                                                            "Student No. doesn't match with your branch",
+                                                            style: GoogleFonts.getFont(
+                                                              'Ubuntu',
+                                                            ),
+                                                          ),
+                                                        );
+                                                      });
+                                                  return;
+                                                }
 
                                                 _startLoading();
 
                                                 await RecaptchaService.getToken();
 
-                                                Student.name =
-                                                    nameController.text;
-                                                Student.email =
-                                                    emailController.text.trim();
-                                                Student.stdno =
-                                                    rollController.text.trim();
-                                                Student.phone =
-                                                    phoneController.text.trim();
+
 
                                                 await registerUser();
                                                 _endLoading();
@@ -785,7 +853,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                   child: Center(
                     child: Lottie.asset(
                       "images/loader2.json",
-                      width: width * 0.1,
+                      width: width * 0.2,
                       fit: BoxFit.fitWidth,
                     ),
                   ),
