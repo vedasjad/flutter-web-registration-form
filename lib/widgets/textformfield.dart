@@ -28,8 +28,8 @@ textFormField(
     // ),
     decoration: BoxDecoration(
       color: (width > 710)
-          ?Colors.white
-          :AppColors.textFieldColorPhone,
+          ?AppColors.textFieldColor
+          :AppColors.textFieldColor,
       // border: Border.all(
       //   color: (selectedNode == labelText)
       //       ? (width>710)?AppColors.backColor:AppColors.whiteColor
@@ -47,7 +47,7 @@ textFormField(
       keyboardType: keyboardType,
       autofocus: true,
       textCapitalization: TextCapitalization.words,
-      cursorColor: (width>710)?AppColors.backColor:AppColors.whiteColor,
+      cursorColor: AppColors.backColor,
       decoration: InputDecoration(
         filled: false,
         border: const OutlineInputBorder(
@@ -67,12 +67,12 @@ textFormField(
             width: 2,
           ),
         ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: const BorderRadius.all(
+        focusedBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(
             Radius.circular(5),
           ),
           borderSide: BorderSide(
-            color: (width>710)?AppColors.backColor:AppColors.whiteColor,
+            color: AppColors.backColor,
           ),
         ),
         enabledBorder: const OutlineInputBorder(
@@ -87,7 +87,7 @@ textFormField(
         labelStyle: GoogleFonts.getFont(
           'Ubuntu',
           fontSize: fontSize,
-          color: (width>710)?AppColors.backColor:AppColors.whiteColor,
+          color: AppColors.backColor,
           fontWeight: FontWeight.w300,
         ),
         // hintText: 'Enter $labelText',
@@ -100,14 +100,14 @@ textFormField(
         errorStyle: GoogleFonts.getFont(
           'Ubuntu',
           // fontSize: fontSize,
-          color: (width>710)?Colors.red:AppColors.whiteColor,
+          color: Colors.red,
           fontWeight: FontWeight.w400,
         ),
       ),
       style: GoogleFonts.getFont(
         'Ubuntu',
         fontSize: fontSize,
-        color: (width>710)?AppColors.backColor:AppColors.whiteColor,
+        color: AppColors.backColor,
         fontWeight: FontWeight.w300,
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,

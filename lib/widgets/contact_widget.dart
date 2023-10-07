@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:townhall/constants/app_colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
@@ -26,7 +27,7 @@ class ContactWidget extends StatelessWidget {
               },
               child: SvgPicture.asset(
                 "images/linkedin.svg",
-                color: Colors.white,
+                color: AppColors.backColor,
                 fit: BoxFit.contain,
                 height: 30,
                 width: 30,
@@ -46,7 +47,7 @@ class ContactWidget extends StatelessWidget {
               },
               child: Image.asset(
                 "images/website.png",
-                color: Colors.white,
+                color: AppColors.backColor,
                 fit: BoxFit.contain,
                 height: 30,
                 width: 30,
@@ -66,7 +67,7 @@ class ContactWidget extends StatelessWidget {
               },
               child: Image.asset(
                 "images/insta.png",
-                color: Colors.white,
+                color: AppColors.backColor,
                 fit: BoxFit.contain,
                 height: 30,
                 width: 30,

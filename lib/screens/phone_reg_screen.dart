@@ -24,6 +24,8 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
   final _regFormKey = GlobalKey<FormState>();
   final RegisterService registerService = RegisterService();
 
+  final double _formProgress = 0;
+
   registerUser() async {
     //debugPrint("User Model Made");
     User user = User(
@@ -45,12 +47,9 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
   }
 
   TextEditingController nameController = TextEditingController();
-  TextEditingController emailController =
-      TextEditingController();
-  TextEditingController rollController =
-      TextEditingController();
-  TextEditingController phoneController =
-      TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController rollController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
   FocusNode nameNode = FocusNode();
   FocusNode emailNode = FocusNode();
@@ -125,7 +124,8 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
       isLoading = true;
     });
   }
-  _endLoading(){
+
+  _endLoading() {
     setState(() {
       isLoading = false;
     });
@@ -138,30 +138,14 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
     double fontSize = height * 0.023;
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: AppColors.backColor,
+      backgroundColor: AppColors.whiteColor,
       body: SafeArea(
         child: Stack(
           children: [
             Image.asset(
-              "images/background.jpg",
-              height: height,
-              fit: BoxFit.fitHeight,
-            ),
-            Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.black,
-                    Colors.transparent,
-                  ],
-                  begin: Alignment.bottomLeft,
-                  end: Alignment.topRight,
-                  stops: [0.4, 0.7],
-                  tileMode: TileMode.repeated,
-                ),
-              ),
+              "assets/images/background.jpg",
+              width: width,
+              fit: BoxFit.fitWidth,
             ),
             Container(
               height: height,
@@ -172,50 +156,40 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                     vertical: height * 0.02, horizontal: width * 0.02),
                 child: Column(
                   children: [
-                    SizedBox(
-                      child: Column(
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      height: height * 0.1,
+                      child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
+                          Text(
+                            'BUIDL',
+                            style: GoogleFonts.getFont(
+                              'Josefin Sans',
+                              fontWeight: FontWeight.w900,
+                              fontSize: width * 0.1,
+                              color: AppColors.backColor,
+                            ),
+                          ),
+                          SizedBox(
+                            width: width * 0.15,
+                          ),
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Image.asset(
-                                "images/logo.png",
+                                "assets/images/logo.png",
                                 fit: BoxFit.fitWidth,
                                 width: width * 0.12,
                               ),
                               Image.asset(
-                                "images/title.png",
+                                "assets/images/title.png",
                                 fit: BoxFit.fitWidth,
                                 width: width * 0.3,
                               ),
                             ],
-                          ),
-                          SizedBox(
-                            height: height * 0.01,
-                          ),
-                          Text(
-                            'PRESENTS',
-                            style: GoogleFonts.getFont(
-                              'Ubuntu',
-                              fontSize: height * 0.017,
-                              color: AppColors.whiteColor,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          SizedBox(
-                            height: height * 0.02,
-                          ),
-                          Text(
-                            'TOWNHALL',
-                            style: GoogleFonts.getFont(
-                              'Josefin Sans',
-                              fontWeight: FontWeight.w900,
-                              fontSize: width * 0.1,
-                              color: AppColors.whiteColor,
-                            ),
                           ),
                         ],
                       ),
@@ -254,6 +228,10 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            LinearProgressIndicator(
+                              value: _formProgress,
+                              backgroundColor: AppColors.backColor,
+                            ),
                             Form(
                               key: _regFormKey,
                               child: Column(
@@ -269,7 +247,8 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                     (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'Please enter your Name';
-                                      } else if (!RegExp(r'^(?=.{1,30}$)([a-zA-Z]{1,15}(?:\s[a-zA-Z]{1,15}){0,4})$')
+                                      } else if (!RegExp(
+                                              r'^(?=.{1,30}$)([a-zA-Z]{1,15}(?:\s[a-zA-Z]{1,15}){0,4})$')
                                           .hasMatch(value)) {
                                         return 'Enter Valid Name';
                                       }
@@ -304,14 +283,14 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                     children: [
                                       Expanded(
                                         child: Container(
-                                          margin: EdgeInsets.all(fontSize * 0.6),
+                                          margin:
+                                              EdgeInsets.all(fontSize * 0.6),
                                           padding: EdgeInsets.symmetric(
                                               horizontal: height * 0.005),
                                           decoration: BoxDecoration(
-                                            color: (width > 710)
-                                                ? Colors.white
-                                                : AppColors.textFieldColorPhone,
-                                            borderRadius: const BorderRadius.all(
+                                            color: AppColors.textFieldColor,
+                                            borderRadius:
+                                                const BorderRadius.all(
                                               Radius.circular(5),
                                             ),
                                             border: Border.all(
@@ -348,10 +327,8 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                                 padding: EdgeInsets.symmetric(
                                                     horizontal: height * 0.005),
                                                 decoration: BoxDecoration(
-                                                  color: (width > 710)
-                                                      ? Colors.white
-                                                      : AppColors
-                                                          .textFieldColorPhone,
+                                                  color:
+                                                      AppColors.textFieldColor,
                                                   borderRadius:
                                                       const BorderRadius.all(
                                                     Radius.circular(5),
@@ -360,8 +337,10 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                                     color: (selectedNode ==
                                                             "Branch")
                                                         ? (width > 710)
-                                                            ? AppColors.backColor
-                                                            : AppColors.whiteColor
+                                                            ? AppColors
+                                                                .backColor
+                                                            : AppColors
+                                                                .whiteColor
                                                         : Colors.transparent,
                                                     width: 2,
                                                   ),
@@ -377,7 +356,8 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                                       label: 'Branch',
                                                       width: width,
                                                       focusNode: branchNode,
-                                                      selectedNode: selectedNode,
+                                                      selectedNode:
+                                                          selectedNode,
                                                     ),
                                                   ],
                                                 ),
@@ -392,7 +372,8 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                                 padding: EdgeInsets.symmetric(
                                                     horizontal: height * 0.005),
                                                 decoration: BoxDecoration(
-                                                  color: Colors.white,
+                                                  color:
+                                                      AppColors.textFieldColor,
                                                   borderRadius:
                                                       const BorderRadius.all(
                                                     Radius.circular(5),
@@ -401,8 +382,10 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                                     color: (selectedNode ==
                                                             "Section")
                                                         ? (width > 710)
-                                                            ? AppColors.backColor
-                                                            : AppColors.whiteColor
+                                                            ? AppColors
+                                                                .backColor
+                                                            : AppColors
+                                                                .whiteColor
                                                         : Colors.transparent,
                                                     width: 2,
                                                   ),
@@ -418,7 +401,8 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                                       label: 'Section',
                                                       width: width,
                                                       focusNode: sectionNode,
-                                                      selectedNode: selectedNode,
+                                                      selectedNode:
+                                                          selectedNode,
                                                     ),
                                                   ],
                                                 ),
@@ -439,10 +423,8 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                                 padding: EdgeInsets.symmetric(
                                                     horizontal: height * 0.005),
                                                 decoration: BoxDecoration(
-                                                  color: (width > 710)
-                                                      ? Colors.white
-                                                      : AppColors
-                                                          .textFieldColorPhone,
+                                                  color:
+                                                      AppColors.textFieldColor,
                                                   borderRadius:
                                                       const BorderRadius.all(
                                                     Radius.circular(5),
@@ -451,8 +433,10 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                                     color: (selectedNode ==
                                                             "Branch")
                                                         ? (width > 710)
-                                                            ? AppColors.backColor
-                                                            : AppColors.whiteColor
+                                                            ? AppColors
+                                                                .backColor
+                                                            : AppColors
+                                                                .whiteColor
                                                         : Colors.transparent,
                                                     width: 2,
                                                   ),
@@ -468,7 +452,8 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                                       label: 'Branch',
                                                       width: width,
                                                       focusNode: branchNode,
-                                                      selectedNode: selectedNode,
+                                                      selectedNode:
+                                                          selectedNode,
                                                     ),
                                                   ],
                                                 ),
@@ -489,10 +474,8 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                                 padding: EdgeInsets.symmetric(
                                                     horizontal: height * 0.005),
                                                 decoration: BoxDecoration(
-                                                  color: (width > 710)
-                                                      ? AppColors.textFieldColor
-                                                      : AppColors
-                                                          .textFieldColorPhone,
+                                                  color:
+                                                      AppColors.textFieldColor,
                                                   borderRadius:
                                                       const BorderRadius.all(
                                                     Radius.circular(5),
@@ -501,38 +484,40 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                                     color: (selectedNode ==
                                                             "Section")
                                                         ? (width > 710)
-                                                            ? AppColors.backColor
-                                                            : AppColors.whiteColor
+                                                            ? AppColors
+                                                                .backColor
+                                                            : AppColors
+                                                                .whiteColor
                                                         : Colors.transparent,
                                                     width: 2,
                                                   ),
                                                 ),
                                                 child: Row(
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .center,
+                                                      MainAxisAlignment.center,
                                                   children: [
                                                     Text(
                                                       'Section',
-                                                      style: GoogleFonts.getFont(
+                                                      style:
+                                                          GoogleFonts.getFont(
                                                         'Ubuntu',
                                                         fontSize: fontSize,
-                                                        color: (width > 710)
-                                                            ? AppColors.backColor
-                                                            : AppColors
-                                                                .whiteColor,
+                                                        color: AppColors
+                                                                .backColor,
                                                         fontWeight:
                                                             FontWeight.w300,
                                                       ),
                                                     ),
-                                                    SizedBox(width : width * 0.01),
+                                                    SizedBox(
+                                                        width: width * 0.01,),
                                                     DropdownButtonWidget(
                                                       fontSize: fontSize,
                                                       list: firstYearSections,
                                                       label: 'Section',
                                                       width: width,
                                                       focusNode: sectionNode,
-                                                      selectedNode: selectedNode,
+                                                      selectedNode:
+                                                          selectedNode,
                                                     ),
                                                   ],
                                                 ),
@@ -548,7 +533,12 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                     (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'Please enter your Student No';
-                                      } else if (value.length > 8 || value.length <7 || (!value.toString().startsWith('21') && !value.toString().startsWith('22'))) {
+                                      } else if (value.length > 8 ||
+                                          value.length < 7 ||
+                                          (!value.toString().startsWith('21') &&
+                                              !value
+                                                  .toString()
+                                                  .startsWith('22'))) {
                                         return 'Enter Valid Student No';
                                       }
                                       return null;
@@ -566,7 +556,11 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                     (value) {
                                       if (value == null || value.isEmpty) {
                                         return 'Please enter your WhatsApp No';
-                                      } else if (value.length != 10 || value.toString().startsWith('1') || value.toString().startsWith('2') || value.toString().startsWith('3') || value.toString().startsWith('4')) {
+                                      } else if (value.length != 10 ||
+                                          value.toString().startsWith('1') ||
+                                          value.toString().startsWith('2') ||
+                                          value.toString().startsWith('3') ||
+                                          value.toString().startsWith('4')) {
                                         return 'Enter a valid number';
                                       }
                                       return null;
@@ -583,7 +577,8 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                               height: height * 0.015,
                             ),
                             Padding(
-                              padding: EdgeInsets.symmetric(horizontal: width*0.03),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: width * 0.03),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -592,13 +587,12 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                       height: height * 0.08,
                                       child: ElevatedButton(
                                         onPressed: () async {
-
-                                          final isValid =
-                                              _regFormKey.currentState!.validate();
+                                          final isValid = _regFormKey
+                                              .currentState!
+                                              .validate();
                                           if (!isValid) return;
 
-                                          Student.name =
-                                              nameController.text;
+                                          Student.name = nameController.text;
                                           Student.email =
                                               emailController.text.trim();
                                           Student.stdno =
@@ -606,16 +600,21 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                           Student.phone =
                                               phoneController.text.trim();
 
-                                          if (!emailController.text.contains(rollController.text)){
+                                          if (!emailController.text
+                                              .contains(rollController.text)) {
                                             showDialog(
                                                 context: context,
                                                 builder: (context) {
                                                   return AlertDialog(
-                                                    backgroundColor: Colors.white,
-                                                    insetPadding: const EdgeInsets.all(10),
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                    insetPadding:
+                                                        const EdgeInsets.all(
+                                                            10),
                                                     content: Text(
                                                       "Enter Correct College Email!",
-                                                      style: GoogleFonts.getFont(
+                                                      style:
+                                                          GoogleFonts.getFont(
                                                         'Ubuntu',
                                                       ),
                                                     ),
@@ -624,16 +623,23 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                             return;
                                           }
 
-                                          if(!Student.stdno.startsWith("21") && Student.year=='2nd Year' || !Student.stdno.startsWith("22") && Student.year=='1st Year'){
+                                          if (!Student.stdno.startsWith("21") &&
+                                                  Student.year == '2nd Year' ||
+                                              !Student.stdno.startsWith("22") &&
+                                                  Student.year == '1st Year') {
                                             showDialog(
                                                 context: context,
                                                 builder: (context) {
                                                   return AlertDialog(
-                                                    backgroundColor: Colors.white,
-                                                    insetPadding: const EdgeInsets.all(10),
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                    insetPadding:
+                                                        const EdgeInsets.all(
+                                                            10),
                                                     content: Text(
                                                       "Student No. doesn't match with your year",
-                                                      style: GoogleFonts.getFont(
+                                                      style:
+                                                          GoogleFonts.getFont(
                                                         'Ubuntu',
                                                       ),
                                                     ),
@@ -642,16 +648,28 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                             return;
                                           }
 
-                                          if(Student.year=="1st Year" && (Student.section=="I" || Student.section == "II" || Student.section == "III") || Student.year=="2nd Year" && Student.section != "I" && Student.section != "II" && Student.section != "III"){
+                                          if (Student.year == "1st Year" &&
+                                                  (Student.section == "I" ||
+                                                      Student.section == "II" ||
+                                                      Student.section ==
+                                                          "III") ||
+                                              Student.year == "2nd Year" &&
+                                                  Student.section != "I" &&
+                                                  Student.section != "II" &&
+                                                  Student.section != "III") {
                                             showDialog(
                                                 context: context,
                                                 builder: (context) {
                                                   return AlertDialog(
-                                                    backgroundColor: Colors.white,
-                                                    insetPadding: const EdgeInsets.all(10),
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                    insetPadding:
+                                                        const EdgeInsets.all(
+                                                            10),
                                                     content: Text(
                                                       "Section doesn't match with your year",
-                                                      style: GoogleFonts.getFont(
+                                                      style:
+                                                          GoogleFonts.getFont(
                                                         'Ubuntu',
                                                       ),
                                                     ),
@@ -660,28 +678,84 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                             return;
                                           }
 
-                                          if(Student.branch == "CSE-AIML" && !Student.stdno.startsWith("21153") && !Student.stdno.startsWith("22153")
-                                              || Student.branch == "CSE" && !Student.stdno.startsWith("2110") && !Student.stdno.startsWith("2210")
-                                              || Student.branch == "CS" && !Student.stdno.startsWith("2112") && !Student.stdno.startsWith("2212")
-                                              || Student.branch == "IT" && !Student.stdno.startsWith("2113") && !Student.stdno.startsWith("2213")
-                                              || Student.branch == "CSIT" && !Student.stdno.startsWith("2111") && !Student.stdno.startsWith("2211")
-                                              || Student.branch == "ECE" && !Student.stdno.startsWith("2131") && !Student.stdno.startsWith("2231")
-                                              || Student.branch == "EN" && !Student.stdno.startsWith("2130") && !Student.stdno.startsWith("2230")
-                                              || Student.branch == "CE" && !Student.stdno.startsWith("2100") && !Student.stdno.startsWith("2200")
-                                              || Student.branch == "AIML" && !Student.stdno.startsWith("21164") && !Student.stdno.startsWith("22164")
-                                              || Student.branch == "CSE-DS" && !Student.stdno.startsWith("21154") && !Student.stdno.startsWith("22154")
-                                              || Student.branch == "ME" && !Student.stdno.startsWith("2140") && !Student.stdno.startsWith("2240")
-                                              || Student.branch == "CS-HINDI" && !Student.stdno.startsWith("21169") && !Student.stdno.startsWith("22169")
-                                              || Student.branch == "MCA" && !Student.stdno.startsWith("2114") && !Student.stdno.startsWith("2214")){
+                                          if (Student.branch == "CSE-AIML" &&
+                                                  !Student.stdno
+                                                      .startsWith("21153") &&
+                                                  !Student.stdno
+                                                      .startsWith("22153") ||
+                                              Student.branch == "CSE" &&
+                                                  !Student.stdno
+                                                      .startsWith("2110") &&
+                                                  !Student.stdno
+                                                      .startsWith("2210") ||
+                                              Student.branch == "CS" &&
+                                                  !Student.stdno
+                                                      .startsWith("2112") &&
+                                                  !Student.stdno
+                                                      .startsWith("2212") ||
+                                              Student.branch == "IT" &&
+                                                  !Student.stdno
+                                                      .startsWith("2113") &&
+                                                  !Student.stdno
+                                                      .startsWith("2213") ||
+                                              Student.branch == "CSIT" &&
+                                                  !Student.stdno
+                                                      .startsWith("2111") &&
+                                                  !Student.stdno
+                                                      .startsWith("2211") ||
+                                              Student.branch == "ECE" &&
+                                                  !Student.stdno
+                                                      .startsWith("2131") &&
+                                                  !Student.stdno
+                                                      .startsWith("2231") ||
+                                              Student.branch == "EN" &&
+                                                  !Student.stdno
+                                                      .startsWith("2121") &&
+                                                  !Student.stdno
+                                                      .startsWith("2221") ||
+                                              Student.branch == "CE" &&
+                                                  !Student.stdno
+                                                      .startsWith("2100") &&
+                                                  !Student.stdno
+                                                      .startsWith("2200") ||
+                                              Student.branch == "AIML" &&
+                                                  !Student.stdno
+                                                      .startsWith("21164") &&
+                                                  !Student.stdno
+                                                      .startsWith("22164") ||
+                                              Student.branch == "CSE-DS" &&
+                                                  !Student.stdno
+                                                      .startsWith("21154") &&
+                                                  !Student.stdno
+                                                      .startsWith("22154") ||
+                                              Student.branch == "ME" &&
+                                                  !Student.stdno
+                                                      .startsWith("2140") &&
+                                                  !Student.stdno
+                                                      .startsWith("2240") ||
+                                              Student.branch == "CS-HINDI" &&
+                                                  !Student.stdno
+                                                      .startsWith("21169") &&
+                                                  !Student.stdno
+                                                      .startsWith("22169") ||
+                                              Student.branch == "MCA" &&
+                                                  !Student.stdno
+                                                      .startsWith("2114") &&
+                                                  !Student.stdno
+                                                      .startsWith("2214")) {
                                             showDialog(
                                                 context: context,
                                                 builder: (context) {
                                                   return AlertDialog(
-                                                    backgroundColor: Colors.white,
-                                                    insetPadding: const EdgeInsets.all(10),
+                                                    backgroundColor:
+                                                        Colors.white,
+                                                    insetPadding:
+                                                        const EdgeInsets.all(
+                                                            10),
                                                     content: Text(
                                                       "Student No. doesn't match with your branch",
-                                                      style: GoogleFonts.getFont(
+                                                      style:
+                                                          GoogleFonts.getFont(
                                                         'Ubuntu',
                                                       ),
                                                     ),
@@ -698,20 +772,21 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
                                           _endLoading();
                                         },
                                         style: ElevatedButton.styleFrom(
-                                            backgroundColor: AppColors.whiteColor,
-                                            elevation: 0,
-                                            padding: const EdgeInsets.all(15),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(5),
-                                            )),
+                                          backgroundColor: AppColors.backColor,
+                                          elevation: 0,
+                                          padding: const EdgeInsets.all(15),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(5),
+                                          ),
+                                        ),
                                         child: Text(
                                           'Register',
                                           style: GoogleFonts.getFont(
                                             'Ubuntu',
                                             fontWeight: FontWeight.w600,
                                             fontSize: height * 0.022,
-                                            color: AppColors.backColor,
+                                            color: AppColors.whiteColor,
                                           ),
                                         ),
                                       ),
@@ -730,39 +805,39 @@ class _PhoneRegistrationScreenState extends State<PhoneRegistrationScreen> {
             ),
             (isLoading)
                 ? GlassmorphicContainer(
-              width: width,
-              height: height,
-              borderRadius: 0,
-              linearGradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  const Color(0xFFffffff).withOpacity(0.1),
-                  const Color(0xFFFFFFFF).withOpacity(0.05),
-                ],
-                stops: const [
-                  0.1,
-                  1,
-                ],
-              ),
-              border: 0,
-              blur: 15,
-              borderGradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  const Color(0xFFffffff).withOpacity(0.5),
-                  const Color((0xFFFFFFFF)).withOpacity(0.5),
-                ],
-              ),
-              child: Center(
-                child: Lottie.asset(
-                  "images/loader2.json",
-                  width: width * 0.2,
-                  fit: BoxFit.fitWidth,
-                ),
-              ),
-            )
+                    width: width,
+                    height: height,
+                    borderRadius: 0,
+                    linearGradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        const Color(0xFFffffff).withOpacity(0.1),
+                        const Color(0xFFFFFFFF).withOpacity(0.05),
+                      ],
+                      stops: const [
+                        0.1,
+                        1,
+                      ],
+                    ),
+                    border: 0,
+                    blur: 15,
+                    borderGradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        const Color(0xFFffffff).withOpacity(0.5),
+                        const Color((0xFFFFFFFF)).withOpacity(0.5),
+                      ],
+                    ),
+                    child: Center(
+                      child: Lottie.asset(
+                        "images/loader2.json",
+                        width: width * 0.2,
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
+                  )
                 : const SizedBox(),
           ],
         ),

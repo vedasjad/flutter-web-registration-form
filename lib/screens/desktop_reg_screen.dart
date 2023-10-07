@@ -52,12 +52,9 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
   }
 
   TextEditingController nameController = TextEditingController();
-  TextEditingController emailController =
-      TextEditingController();
-  TextEditingController rollController =
-      TextEditingController();
-  TextEditingController phoneController =
-      TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController rollController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
 
   FocusNode nameNode = FocusNode();
   FocusNode emailNode = FocusNode();
@@ -133,7 +130,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
     });
   }
 
-  _endLoading(){
+  _endLoading() {
     setState(() {
       isLoading = false;
     });
@@ -168,99 +165,97 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                 borderRadius: BorderRadius.circular(20.0),
                                 child: Image.asset(
                                   "images/background.jpg",
-                                  height: height,
-                                  fit: BoxFit.fitHeight,
+                                  width : width / 2,
+                                  fit: BoxFit.fitWidth,
                                 ),
                               ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset(
-                                        "images/logo.png",
-                                        fit: BoxFit.fitWidth,
-                                        width: width * 0.05,
-                                      ),
-                                      Image.asset(
-                                        "images/title.png",
-                                        fit: BoxFit.fitWidth,
-                                        width: width * 0.17,
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: height * 0.01,
-                                  ),
-                                  Text(
-                                    'PRESENTS',
-                                    style: GoogleFonts.getFont(
-                                      'Ubuntu',
-                                      fontSize: height * 0.02,
-                                      color: AppColors.whiteColor,
-                                      fontWeight: FontWeight.w500,
+                              Padding(
+                                padding: EdgeInsets.only(left: width * 0.1),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Image.asset(
+                                          "images/logo.png",
+                                          fit: BoxFit.fitWidth,
+                                          width: width * 0.05,
+                                        ),
+                                        Image.asset(
+                                          "images/title.png",
+                                          fit: BoxFit.fitWidth,
+                                          width: width * 0.17,
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: height * 0.05,
-                                  ),
-                                  Container(
-                                    color: Colors.transparent,
-                                    child: Center(
-                                      child: Text(
-                                        'TOWNHALL',
-                                        style: GoogleFonts.getFont(
-                                          'Josefin Sans',
-                                          fontWeight: FontWeight.w900,
-                                          fontSize: (width > 900)
-                                              ? width * 0.05
-                                              : width * 0.05,
-                                          color: AppColors.whiteColor,
+                                    SizedBox(
+                                      height: height * 0.01,
+                                    ),
+                                    Text(
+                                      'PRESENTS',
+                                      style: GoogleFonts.getFont(
+                                        'Ubuntu',
+                                        fontSize: height * 0.02,
+                                        color: AppColors.backColor,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      height: height * 0.05,
+                                    ),
+                                    Container(
+                                      color: Colors.transparent,
+                                      child: Center(
+                                        child: Text(
+                                          'BUIDL',
+                                          style: GoogleFonts.getFont(
+                                            'Josefin Sans',
+                                            fontWeight: FontWeight.w900,
+                                            fontSize: (width > 900)
+                                                ? width * 0.05
+                                                : width * 0.05,
+                                            color: AppColors.backColor,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: height * 0.05,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        '————— Get in touch —————',
-                                        style: GoogleFonts.getFont(
-                                          'Ubuntu',
-                                          fontSize: height * 0.02,
-                                          color: AppColors.whiteColor,
-                                          fontWeight: FontWeight.w500,
+                                    SizedBox(
+                                      height: height * 0.05,
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          '————— Get in touch —————',
+                                          style: GoogleFonts.getFont(
+                                            'Ubuntu',
+                                            fontSize: height * 0.02,
+                                            color: AppColors.backColor,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  // SizedBox(
-                                  //   height: height*0.0005,
-                                  // ),
-                                  const ContactWidget(),
-                                  SizedBox(
-                                    height: height * 0.1,
-                                  ),
-                                ],
+                                      ],
+                                    ),
+                                    // SizedBox(
+                                    //   height: height*0.0005,
+                                    // ),
+                                    const ContactWidget(),
+                                    SizedBox(
+                                      height: height * 0.1,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           ),
                         ),
                   Expanded(
                     child: Container(
-                      height: height,
-                      margin: EdgeInsets.symmetric(
-                        horizontal: ResponsiveWidget.isSmallScreen(context)
-                            ? height * 0
-                            : height * 0,
-                      ),
+                      height: height * 0.9,
                       color: AppColors.whiteColor,
                       child: SingleChildScrollView(
                         padding: EdgeInsets.all(height * 0.03),
@@ -277,7 +272,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                       Column(
                                         children: [
                                           Text(
-                                            'TOWNHALL',
+                                            'BUIDL',
                                             style: GoogleFonts.getFont(
                                               'Josefin Sans',
                                               fontWeight: FontWeight.w900,
@@ -318,16 +313,22 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                 ],
                               ),
                               width: width * 0.5,
-                               height: height * 0.9 ,
+                              height: height * 0.85,
                               child: SingleChildScrollView(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    LinearProgressIndicator(value: _formProgress),
+                                    LinearProgressIndicator(
+                                      value: _formProgress,
+                                      backgroundColor: AppColors.backColor,
+                                    ),
                                     Padding(
-                                      padding: EdgeInsets.fromLTRB(height * 0.03,
-                                          height * 0.07, height * 0.03, height * 0.03),
+                                      padding: EdgeInsets.fromLTRB(
+                                          height * 0.03,
+                                          height * 0.07,
+                                          height * 0.03,
+                                          height * 0.03),
                                       child: Form(
                                         key: _regFormKey,
                                         child: Column(
@@ -345,7 +346,7 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                         r'^(?=.{1,30}$)([a-zA-Z]{1,15}(?:\s[a-zA-Z]{1,15}){0,4})$')
                                                     .hasMatch(value)) {
                                                   return 'Enter Valid Name';
-                                                } else if(value.length>30){
+                                                } else if (value.length > 30) {
                                                   return 'Name is too long';
                                                 }
                                                 return null;
@@ -382,20 +383,25 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                   child: Container(
                                                     margin: EdgeInsets.all(
                                                         fontSize * 0.6),
-                                                    padding: EdgeInsets.symmetric(
-                                                        horizontal:
-                                                            height * 0.005),
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal:
+                                                                height * 0.005),
                                                     decoration: BoxDecoration(
-                                                      color: Colors.white,
+                                                      color: AppColors
+                                                          .textFieldColor,
                                                       borderRadius:
-                                                          const BorderRadius.all(
+                                                          const BorderRadius
+                                                              .all(
                                                         Radius.circular(5),
                                                       ),
                                                       border: Border.all(
                                                         color: (selectedNode ==
                                                                 "Year")
-                                                            ? AppColors.backColor
-                                                            : Colors.transparent,
+                                                            ? AppColors
+                                                                .backColor
+                                                            : Colors
+                                                                .transparent,
                                                         width: 2,
                                                       ),
                                                     ),
@@ -421,8 +427,10 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                     ? const SizedBox()
                                                     : Expanded(
                                                         child: Container(
-                                                          margin: EdgeInsets.all(
-                                                              fontSize * 0.6),
+                                                          margin:
+                                                              EdgeInsets.all(
+                                                                  fontSize *
+                                                                      0.6),
                                                           padding: EdgeInsets
                                                               .symmetric(
                                                                   horizontal:
@@ -430,11 +438,13 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                                           0.005),
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: Colors.white,
+                                                            color: AppColors
+                                                                .textFieldColor,
                                                             borderRadius:
                                                                 const BorderRadius
                                                                     .all(
-                                                              Radius.circular(5),
+                                                              Radius.circular(
+                                                                  5),
                                                             ),
                                                             border: Border.all(
                                                               color: (selectedNode ==
@@ -470,8 +480,10 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                     ? const SizedBox()
                                                     : Expanded(
                                                         child: Container(
-                                                          margin: EdgeInsets.all(
-                                                              fontSize * 0.6),
+                                                          margin:
+                                                              EdgeInsets.all(
+                                                                  fontSize *
+                                                                      0.6),
                                                           padding: EdgeInsets
                                                               .symmetric(
                                                                   horizontal:
@@ -479,11 +491,13 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                                           0.005),
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: Colors.white,
+                                                            color: AppColors
+                                                                .textFieldColor,
                                                             borderRadius:
                                                                 const BorderRadius
                                                                     .all(
-                                                              Radius.circular(5),
+                                                              Radius.circular(
+                                                                  5),
                                                             ),
                                                             border: Border.all(
                                                               color: (selectedNode ==
@@ -505,7 +519,8 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                                     fontSize,
                                                                 list:
                                                                     firstYearSections,
-                                                                label: 'Section',
+                                                                label:
+                                                                    'Section',
                                                                 width: width,
                                                                 focusNode:
                                                                     sectionNode,
@@ -522,12 +537,15 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                 ? const SizedBox()
                                                 : Row(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment.center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                     children: [
                                                       Expanded(
                                                         child: Container(
-                                                          margin: EdgeInsets.all(
-                                                              fontSize * 0.6),
+                                                          margin:
+                                                              EdgeInsets.all(
+                                                                  fontSize *
+                                                                      0.6),
                                                           padding: EdgeInsets
                                                               .symmetric(
                                                                   horizontal:
@@ -535,11 +553,13 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                                           0.005),
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: Colors.white,
+                                                            color: AppColors
+                                                                .textFieldColor,
                                                             borderRadius:
                                                                 const BorderRadius
                                                                     .all(
-                                                              Radius.circular(5),
+                                                              Radius.circular(
+                                                                  5),
                                                             ),
                                                             border: Border.all(
                                                               color: (selectedNode ==
@@ -577,12 +597,15 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                 ? const SizedBox()
                                                 : Row(
                                                     mainAxisAlignment:
-                                                        MainAxisAlignment.center,
+                                                        MainAxisAlignment
+                                                            .center,
                                                     children: [
                                                       Expanded(
                                                         child: Container(
-                                                          margin: EdgeInsets.all(
-                                                              fontSize * 0.6),
+                                                          margin:
+                                                              EdgeInsets.all(
+                                                                  fontSize *
+                                                                      0.6),
                                                           padding: EdgeInsets
                                                               .symmetric(
                                                                   horizontal:
@@ -590,11 +613,13 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                                           0.005),
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: Colors.white,
+                                                            color: AppColors
+                                                                .textFieldColor,
                                                             borderRadius:
                                                                 const BorderRadius
                                                                     .all(
-                                                              Radius.circular(5),
+                                                              Radius.circular(
+                                                                  5),
                                                             ),
                                                             border: Border.all(
                                                               color: (selectedNode ==
@@ -616,7 +641,8 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                                     fontSize,
                                                                 list:
                                                                     firstYearSections,
-                                                                label: 'Section',
+                                                                label:
+                                                                    'Section',
                                                                 width: width,
                                                                 focusNode:
                                                                     sectionNode,
@@ -638,7 +664,15 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                 if (value == null ||
                                                     value.isEmpty) {
                                                   return 'Please Enter Your Student No';
-                                                } else if (value.length > 8 || value.length <7 || (!value.toString().startsWith('21') && !value.toString().startsWith('22'))) {
+                                                } else if (value.length > 8 ||
+                                                    value.length < 7 ||
+                                                    (!value
+                                                            .toString()
+                                                            .startsWith('21') &&
+                                                        !value
+                                                            .toString()
+                                                            .startsWith(
+                                                                '22'))) {
                                                   return 'Enter Valid Student No';
                                                 }
                                                 return null;
@@ -657,7 +691,19 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                 if (value == null ||
                                                     value.isEmpty) {
                                                   return 'Please enter your WhatsApp No';
-                                                } else if (value.length != 10 || value.toString().startsWith('1') || value.toString().startsWith('2') || value.toString().startsWith('3') || value.toString().startsWith('4')) {
+                                                } else if (value.length != 10 ||
+                                                    value
+                                                        .toString()
+                                                        .startsWith('1') ||
+                                                    value
+                                                        .toString()
+                                                        .startsWith('2') ||
+                                                    value
+                                                        .toString()
+                                                        .startsWith('3') ||
+                                                    value
+                                                        .toString()
+                                                        .startsWith('4')) {
                                                   return 'Enter a valid number';
                                                 }
                                                 return null;
@@ -676,7 +722,8 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                     ),
                                     Padding(
                                       padding: EdgeInsets.symmetric(
-                                          horizontal: width *0.02,),
+                                        horizontal: width * 0.02,
+                                      ),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
@@ -697,16 +744,22 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                 Student.phone =
                                                     phoneController.text.trim();
 
-                                                if (!emailController.text.contains(rollController.text)){
+                                                if (!emailController.text
+                                                    .contains(
+                                                        rollController.text)) {
                                                   showDialog(
                                                       context: context,
                                                       builder: (context) {
                                                         return AlertDialog(
-                                                          backgroundColor: Colors.white,
-                                                          insetPadding: const EdgeInsets.all(10),
+                                                          backgroundColor:
+                                                              Colors.white,
+                                                          insetPadding:
+                                                              const EdgeInsets
+                                                                  .all(10),
                                                           content: Text(
                                                             "Enter Correct College Email!",
-                                                            style: GoogleFonts.getFont(
+                                                            style: GoogleFonts
+                                                                .getFont(
                                                               'Ubuntu',
                                                             ),
                                                           ),
@@ -715,16 +768,27 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                   return;
                                                 }
 
-                                                if(!Student.stdno.startsWith("21") && Student.year=='2nd Year' || !Student.stdno.startsWith("22") && Student.year=='1st Year'){
+                                                if (!Student.stdno
+                                                            .startsWith("21") &&
+                                                        Student.year ==
+                                                            '2nd Year' ||
+                                                    !Student.stdno
+                                                            .startsWith("22") &&
+                                                        Student.year ==
+                                                            '1st Year') {
                                                   showDialog(
                                                       context: context,
                                                       builder: (context) {
                                                         return AlertDialog(
-                                                          backgroundColor: Colors.white,
-                                                          insetPadding: const EdgeInsets.all(10),
+                                                          backgroundColor:
+                                                              Colors.white,
+                                                          insetPadding:
+                                                              const EdgeInsets
+                                                                  .all(10),
                                                           content: Text(
                                                             "Student No. doesn't match with your year",
-                                                            style: GoogleFonts.getFont(
+                                                            style: GoogleFonts
+                                                                .getFont(
                                                               'Ubuntu',
                                                             ),
                                                           ),
@@ -733,16 +797,35 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                   return;
                                                 }
 
-                                                if(Student.year=="1st Year" && (Student.section=="I" || Student.section == "II" || Student.section == "III") || Student.year=="2nd Year" && Student.section != "I" && Student.section != "II" && Student.section != "III"){
+                                                if (Student.year ==
+                                                            "1st Year" &&
+                                                        (Student.section ==
+                                                                "I" ||
+                                                            Student.section ==
+                                                                "II" ||
+                                                            Student.section ==
+                                                                "III") ||
+                                                    Student.year ==
+                                                            "2nd Year" &&
+                                                        Student.section !=
+                                                            "I" &&
+                                                        Student.section !=
+                                                            "II" &&
+                                                        Student.section !=
+                                                            "III") {
                                                   showDialog(
                                                       context: context,
                                                       builder: (context) {
                                                         return AlertDialog(
-                                                          backgroundColor: Colors.white,
-                                                          insetPadding: const EdgeInsets.all(10),
+                                                          backgroundColor:
+                                                              Colors.white,
+                                                          insetPadding:
+                                                              const EdgeInsets
+                                                                  .all(10),
                                                           content: Text(
                                                             "Section doesn't match with your year",
-                                                            style: GoogleFonts.getFont(
+                                                            style: GoogleFonts
+                                                                .getFont(
                                                               'Ubuntu',
                                                             ),
                                                           ),
@@ -751,28 +834,59 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                   return;
                                                 }
 
-                                                if(Student.branch == "CSE-AIML" && !Student.stdno.startsWith("21153") && !Student.stdno.startsWith("22153")
-                                                    || Student.branch == "CSE" && !Student.stdno.startsWith("2110") && !Student.stdno.startsWith("2210")
-                                                    || Student.branch == "CS" && !Student.stdno.startsWith("2112") && !Student.stdno.startsWith("2212")
-                                                    || Student.branch == "IT" && !Student.stdno.startsWith("2113") && !Student.stdno.startsWith("2213")
-                                                    || Student.branch == "CSIT" && !Student.stdno.startsWith("2111") && !Student.stdno.startsWith("2211")
-                                                    || Student.branch == "ECE" && !Student.stdno.startsWith("2131") && !Student.stdno.startsWith("2231")
-                                                    || Student.branch == "EN" && !Student.stdno.startsWith("2130") && !Student.stdno.startsWith("2230")
-                                                    || Student.branch == "CE" && !Student.stdno.startsWith("2100") && !Student.stdno.startsWith("2200")
-                                                    || Student.branch == "AIML" && !Student.stdno.startsWith("21164") && !Student.stdno.startsWith("22164")
-                                                    || Student.branch == "CSE-DS" && !Student.stdno.startsWith("21154") && !Student.stdno.startsWith("22154")
-                                                    || Student.branch == "ME" && !Student.stdno.startsWith("2140") && !Student.stdno.startsWith("2240")
-                                                    || Student.branch == "CS-HINDI" && !Student.stdno.startsWith("21169") && !Student.stdno.startsWith("22169")
-                                                || Student.branch == "MCA" && !Student.stdno.startsWith("2114") && !Student.stdno.startsWith("2214")){
+                                                if (Student.branch == "CSE-AIML" &&
+                                                        !Student.stdno.startsWith(
+                                                            "21153") &&
+                                                        !Student.stdno.startsWith(
+                                                            "22153") ||
+                                                    Student.branch == "CSE" &&
+                                                        !Student.stdno.startsWith(
+                                                            "2110") &&
+                                                        !Student.stdno.startsWith(
+                                                            "2210") ||
+                                                    Student.branch == "CS" &&
+                                                        !Student.stdno.startsWith(
+                                                            "2112") &&
+                                                        !Student.stdno.startsWith(
+                                                            "2212") ||
+                                                    Student.branch == "IT" &&
+                                                        !Student.stdno.startsWith(
+                                                            "2113") &&
+                                                        !Student.stdno.startsWith(
+                                                            "2213") ||
+                                                    Student.branch == "CSIT" &&
+                                                        !Student.stdno.startsWith(
+                                                            "2111") &&
+                                                        !Student.stdno.startsWith(
+                                                            "2211") ||
+                                                    Student.branch == "ECE" &&
+                                                        !Student.stdno.startsWith(
+                                                            "2131") &&
+                                                        !Student.stdno.startsWith(
+                                                            "2231") ||
+                                                    Student.branch == "EN" &&
+                                                        !Student.stdno
+                                                            .startsWith("2121") &&
+                                                        !Student.stdno.startsWith("2221") ||
+                                                    Student.branch == "CE" && !Student.stdno.startsWith("2100") && !Student.stdno.startsWith("2200") ||
+                                                    Student.branch == "AIML" && !Student.stdno.startsWith("21164") && !Student.stdno.startsWith("22164") ||
+                                                    Student.branch == "CSE-DS" && !Student.stdno.startsWith("21154") && !Student.stdno.startsWith("22154") ||
+                                                    Student.branch == "ME" && !Student.stdno.startsWith("2140") && !Student.stdno.startsWith("2240") ||
+                                                    Student.branch == "CS-HINDI" && !Student.stdno.startsWith("21169") && !Student.stdno.startsWith("22169") ||
+                                                    Student.branch == "MCA" && !Student.stdno.startsWith("2114") && !Student.stdno.startsWith("2214")) {
                                                   showDialog(
                                                       context: context,
                                                       builder: (context) {
                                                         return AlertDialog(
-                                                          backgroundColor: Colors.white,
-                                                          insetPadding: const EdgeInsets.all(10),
+                                                          backgroundColor:
+                                                              Colors.white,
+                                                          insetPadding:
+                                                              const EdgeInsets
+                                                                  .all(10),
                                                           content: Text(
                                                             "Student No. doesn't match with your branch",
-                                                            style: GoogleFonts.getFont(
+                                                            style: GoogleFonts
+                                                                .getFont(
                                                               'Ubuntu',
                                                             ),
                                                           ),
@@ -783,9 +897,8 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
 
                                                 _startLoading();
 
-                                                await RecaptchaService.getToken();
-
-
+                                                await RecaptchaService
+                                                    .getToken();
 
                                                 await registerUser();
                                                 _endLoading();
@@ -795,13 +908,14 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
                                                     .backColor
                                                     .withOpacity(0.9),
                                                 elevation: 10,
-                                                padding: const EdgeInsets.all(20),
+                                                padding:
+                                                    const EdgeInsets.all(20),
                                               ),
                                               child: Text(
                                                 'Register',
                                                 style: GoogleFonts.getFont(
                                                   'Ubuntu',
-                                                  fontWeight: FontWeight.w300,
+                                                  fontWeight: FontWeight.w600,
                                                   fontSize: height * 0.025,
                                                   color: AppColors.whiteColor,
                                                 ),
@@ -825,39 +939,39 @@ class _DesktopRegScreenState extends State<DesktopRegScreen> {
             ),
             (isLoading)
                 ? GlassmorphicContainer(
-                  width: width,
-                  height: height,
-                  borderRadius: 0,
-                  linearGradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      const Color(0xFFffffff).withOpacity(0.1),
-                      const Color(0xFFFFFFFF).withOpacity(0.05),
-                    ],
-                    stops: const [
-                      0.1,
-                      1,
-                    ],
-                  ),
-                  border: 0,
-                  blur: 15,
-                  borderGradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [
-                      const Color(0xFFffffff).withOpacity(0.5),
-                      const Color((0xFFFFFFFF)).withOpacity(0.5),
-                    ],
-                  ),
-                  child: Center(
-                    child: Lottie.asset(
-                      "images/loader2.json",
-                      width: width * 0.2,
-                      fit: BoxFit.fitWidth,
+                    width: width,
+                    height: height,
+                    borderRadius: 0,
+                    linearGradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        const Color(0xFFffffff).withOpacity(0.1),
+                        const Color(0xFFFFFFFF).withOpacity(0.05),
+                      ],
+                      stops: const [
+                        0.1,
+                        1,
+                      ],
                     ),
-                  ),
-                )
+                    border: 0,
+                    blur: 15,
+                    borderGradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        const Color(0xFFffffff).withOpacity(0.5),
+                        const Color((0xFFFFFFFF)).withOpacity(0.5),
+                      ],
+                    ),
+                    child: Center(
+                      child: Lottie.asset(
+                        "images/loader2.json",
+                        width: width * 0.2,
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
+                  )
                 : const SizedBox(),
           ],
         ),
